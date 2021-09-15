@@ -1,0 +1,58 @@
+.header {
+    background: #1C1C21;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.header__logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav__menu {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    display: flex;
+}
+
+.nav__item {
+    margin-right: 8px;
+}
+
+.nav__link {
+    color: #8585AD;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.nav__link p {
+    margin-left: 8px;
+}
+
+.nav__link.active {
+    color: #F2F2F3;
+}
+
+.login {
+    cursor: pointer;
+    color: #8585AD;
+    display: flex;
+    align-items: center;
+    text-decoration: unset;
+}
+
+.login span {
+    margin-left: 8px;
+}
+
