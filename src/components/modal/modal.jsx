@@ -6,9 +6,7 @@ import PropTypes from "prop-types";
 import dataPropTypes from "../../utils/prop-types";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 
-
 export default function Modal (props) {  
-
     return ReactDOM.createPortal(
         <>
             <ModalOverlay onClose={props.onClose} />   
@@ -25,5 +23,4 @@ export default function Modal (props) {
         document.getElementById('modal-root')
     )
 }
-
 Modal.propTypes = { ingredients: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired }

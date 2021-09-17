@@ -13,9 +13,10 @@ const dataPropTypes = PropTypes.shape({
     image_mobile: PropTypes.string.isRequired,
     image_large: PropTypes.string.isRequired,
     __v :PropTypes.number.isRequired,
+    onOpen: PropTypes.func.isRequired,    
     onClose: PropTypes.func.isRequired,
     children: PropTypes.element.isRequired,
-    title: PropTypes.string,    
+    title: PropTypes.string, 
     });
 
-export default dataPropTypes;    
+export default dataPropTypes; 

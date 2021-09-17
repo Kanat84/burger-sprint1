@@ -14,5 +14,4 @@ export default function OrderDetails () {
       <p className={`${orderDetailsStyle.subtitle} text text_type_main-default mt-2`}>Дождитесь готовности на орбитальной станции</p>
     </div>
   );
-
 };
