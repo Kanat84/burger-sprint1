@@ -9,7 +9,7 @@ import OrderDetails from "../order-details/order-details";
 export default function BurgerConstructor(props) {    
     const [modalActive, setModalActive] = useState(false);
     const handleOpenModal = () => {
-        setModalActive(!setModalActive);
+        setModalActive(!modalActive);
     }    
     return (
         <>
