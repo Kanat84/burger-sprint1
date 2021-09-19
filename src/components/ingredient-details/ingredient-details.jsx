@@ -1,7 +1,6 @@
 import React from 'react';
 import ingredientDetailsStyle from './ingredient-details.module.css';
 import PropTypes from 'prop-types';
-//import dataPropTypes from "../../utils/prop-types";
 
 export default function IngredientDetails (props) {
     return (
@@ -30,8 +29,6 @@ export default function IngredientDetails (props) {
     );
 };
 
-// IngredientDetails.propTypes = { ingredients: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired }
-
 IngredientDetails.propTypes = {
     data: PropTypes.shape({
         image_large: PropTypes.string.isRequired,
@@ -42,13 +39,3 @@ IngredientDetails.propTypes = {
         proteins: PropTypes.number.isRequired,
     }).isRequired
 };
-
-/*
-BurgerIngredientDetail.propTypes = {
-    name: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    onOpen: PropTypes.func.isRequired,
-    _id: PropTypes.string.isRequired
-}
-*/

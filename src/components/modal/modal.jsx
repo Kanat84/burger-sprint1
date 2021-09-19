@@ -3,10 +3,20 @@ import ReactDOM from "react-dom";
 import modalStyle from './modal.module.css';
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
-//import dataPropTypes from "../../utils/m-prop-types";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 
 export default function Modal (props) {  
+    const handleCloseModal = (e) => {
+        if (e.keyCode === 27) {
+            props.onClose(e);
+        }
+    }
+    React.useEffect(() => {
+        document.addEventListener('keyup', handleCloseModal);
+        return () => {
+            document.removeEventListener('keyup', handleCloseModal);
+        }
+    })    
     return ReactDOM.createPortal(
         <>
             <ModalOverlay onClose={props.onClose} />   
@@ -22,8 +32,7 @@ export default function Modal (props) {
         </>,
         document.getElementById('modal-root')
     )
-}
-//Modal.propTypes = { ingredients: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired }
+};
 
 Modal.propTypes = {
     onClose: PropTypes.func.isRequired,
