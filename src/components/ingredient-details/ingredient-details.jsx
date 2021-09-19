@@ -1,7 +1,7 @@
 import React from 'react';
 import ingredientDetailsStyle from './ingredient-details.module.css';
 import PropTypes from 'prop-types';
-import dataPropTypes from "../../utils/prop-types";
+//import dataPropTypes from "../../utils/prop-types";
 
 export default function IngredientDetails (props) {
     return (
@@ -30,4 +30,25 @@ export default function IngredientDetails (props) {
     );
 };
 
-IngredientDetails.propTypes = { ingredients: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired }
+// IngredientDetails.propTypes = { ingredients: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired }
+
+IngredientDetails.propTypes = {
+    data: PropTypes.shape({
+        image_large: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        calories: PropTypes.number.isRequired,
+        carbohydrates: PropTypes.number.isRequired,
+        fat: PropTypes.number.isRequired,
+        proteins: PropTypes.number.isRequired,
+    }).isRequired
+};
+
+/*
+BurgerIngredientDetail.propTypes = {
+    name: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    onOpen: PropTypes.func.isRequired,
+    _id: PropTypes.string.isRequired
+}
+*/

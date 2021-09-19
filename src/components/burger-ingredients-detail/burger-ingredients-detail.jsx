@@ -2,7 +2,7 @@ import React from 'react';
 import burgerIngredientsDetailStyle from './burger-ingredients-detail.module.css';
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from 'prop-types';
-import dataPropTypes from "../../utils/prop-types";
+//import dataPropTypes from "../../utils/prop-types";
 
 export default function BurgerIngredientDetail(props) {
     const {name, image, price, onOpen, _id} = props;
@@ -18,4 +18,12 @@ export default function BurgerIngredientDetail(props) {
     )
 }
 
-BurgerIngredientDetail.propTypes = { ingredients: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired }
+//BurgerIngredientDetail.propTypes = { ingredients: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired }
+
+BurgerIngredientDetail.propTypes = {
+    name: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    onOpen: PropTypes.func.isRequired,
+    _id: PropTypes.string.isRequired
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import modalOverlayStyle from './modal-overlay.module.css';
 import PropTypes from 'prop-types';
-import dataPropTypes from "../../utils/prop-types";
+//import dataPropTypes from "../../utils/m-prop-types";
 
 export default function ModalOverlay (props) {
   return (
@@ -11,5 +11,8 @@ export default function ModalOverlay (props) {
   )
 }
 
-ModalOverlay.propTypes = { ingredients: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired }
+//ModalOverlay.propTypes = { ingredients: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired };
 
+ModalOverlay.propsTypes = {
+  onClose: PropTypes.func.isRequired
+}
