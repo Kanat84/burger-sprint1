@@ -1,10 +1,6 @@
-import {
-    GET_INGREDIENTS_REQUEST,
-    GET_INGREDIENTS_SUCCESS,
-    GET_INGREDIENTS_FAILED,
-    SET_INGREDIENT_TO_MODAL, REMOVE_INGREDIENT_FROM_MODAL
-} from "../actions/burger-ingredients";
-
+import { GET_INGREDIENTS_REQUEST, GET_INGREDIENTS_SUCCESS, GET_INGREDIENTS_FAILED, SET_INGREDIENT_TO_MODAL, 
+    REMOVE_INGREDIENT_FROM_MODAL } from "../actions/burger-ingredients";
+ 
 const initialState = {
     ingredients: [],
     ingredientsRequest: false,

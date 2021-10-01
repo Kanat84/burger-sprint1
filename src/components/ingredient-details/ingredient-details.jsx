@@ -1,4 +1,4 @@
-import React from 'react';
+//import React from 'react';
 import ingredientDetailsStyle from './ingredient-details.module.css';
 import PropTypes from 'prop-types';
 

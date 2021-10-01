@@ -21,7 +21,7 @@ export default function BurgerConstructor() {
     }));
     const dispatch = useDispatch();
 
-    const moveIngredient = (ingredient) => {
+    function moveIngredient (ingredient) {
         dispatch({ type: ingredient.type === 'bun' ? ADD_BUN_TO_CONSTRUCTOR : ADD_INGREDIENT_TO_CONSTRUCTOR,
             item: {...ingredient, uuid: uuidv4()}
         })
@@ -32,14 +32,14 @@ export default function BurgerConstructor() {
         drop(item) { moveIngredient(item); }
     });
 
-    const handleOpenModal = () => {
-        if (!bun) { return alert('Выберите булку'); }
+    function handleOpenModal () {
+        if (!bun) { return alert('Выберите булочку'); }
         const idsArr = [...ingredients.map(item => item._id), bun._id, bun._id];
         dispatch(postOrder(idsArr));
         setModalActive(true)
     }
 
-    const handleClose = () => {
+    function handleClose () {
         dispatch({ type: CLEAR_ORDER })
         dispatch({ type: CLEAR_CONSTRUCTOR })
         setModalActive(false);
