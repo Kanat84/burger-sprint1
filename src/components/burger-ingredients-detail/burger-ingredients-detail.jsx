@@ -7,7 +7,6 @@ import { useSelector } from "react-redux";
 
 export default function BurgerIngredientDetail(props) {
     const {ingredients, bun} = useSelector(state => state.burgerConstructor);
-    //const {image, price, name, _id, onOpen, type} = props;
     let ingredientsCount = ingredients.filter((item) => item._id === props._id).length;
     let counter;
 

@@ -7,7 +7,6 @@ import { useDrag, useDrop } from "react-dnd";
 import { MOVE_INGREDIENT_IN_CONSTRUCTOR, REMOVE_INGREDIENT_FROM_CONSTRUCTOR } from "../../services/actions/burger-constructor";
 
 export default function BurgerConstructorIngredient (props) {
-    const index = props.index;
     const dispatch = useDispatch();
     const handleRemoveIngredient = () => {
         dispatch({
@@ -15,9 +14,7 @@ export default function BurgerConstructorIngredient (props) {
             id: props.uuid
         })
     }
-
     const ref = useRef(null);
-
     const moveCardHandler = (dragIndex, hoverIndex) => {
         dispatch({
             type: MOVE_INGREDIENT_IN_CONSTRUCTOR,
@@ -29,7 +26,7 @@ export default function BurgerConstructorIngredient (props) {
     const [{ isDragging }, drag] = useDrag({
         type: 'sortable',
         item: () => {
-            return { ...props, index };
+            return { ...props };
         },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
@@ -44,7 +41,7 @@ export default function BurgerConstructorIngredient (props) {
                 return;
             }
             const dragIndex = item.index;
-            const hoverIndex = index;
+            const hoverIndex = props.index;
             if (dragIndex === hoverIndex) {
                 return;
             }
@@ -62,19 +59,13 @@ export default function BurgerConstructorIngredient (props) {
             item.index = hoverIndex
         },
     });
-
     drag(drop(ref))
 
     return (<li _id={props._id} style={{opacity: opacity}} className={constructorStyle.item} ref={ref}>
         <div className="mr-2" style={{cursor: 'pointer'}}>
-            <DragIcon type={"primary"}/>
+            <DragIcon type={"primary"} />
         </div>
-        <ConstructorElement
-            text={props.name}
-            price={props.price}
-            thumbnail={props.image}
-            handleClose={handleRemoveIngredient}
-        />
+        <ConstructorElement text={props.name} price={props.price} thumbnail={props.image} handleClose={handleRemoveIngredient} />
     </li>)
 }
 
