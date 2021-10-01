@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createRef, useEffect } from 'react';
 import burgerIngredientsStyle from './burger-ingredients.module.css';
 import appStyles from '../app/app.module.css';
 import BurgerIngrediensDetail from "../burger-ingredients-detail/burger-ingredients-detail";
@@ -7,7 +7,12 @@ import PropTypes from 'prop-types';
 import dataPropTypes from "../../utils/prop-types";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-
+import { useDispatch, useSelector } from "react-redux";
+import {
+    getIngredients,
+    REMOVE_INGREDIENT_FROM_MODAL,
+    SET_INGREDIENT_TO_MODAL
+} from "../../services/actions/burger-ingredients";
 
 export default function BurgerIngredients(props) {
     const [current, setCurrent] = React.useState('but');
