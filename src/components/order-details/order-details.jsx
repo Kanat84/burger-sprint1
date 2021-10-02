@@ -1,11 +1,12 @@
 import React from 'react';
 import orderDetailsStyle from './order-details.module.css';
 import imgDone from '../../images/image.svg';
+import PropTypes from 'prop-types';
 
-export default function OrderDetails () {
+export default function OrderDetails ({id}) {
   return (
     <div className={`${orderDetailsStyle.order} pb-15`}>
-      <p className={`${orderDetailsStyle.title} text text_primary_ligth text_type_digits-large`}>034536</p>
+      <h3 className={`${orderDetailsStyle.title} text text_primary_ligth text_type_digits-large`}>{id}</h3>
       <p className="text text_type_main-medium mt-8">идентификатор заказа</p>
       <div className={`${orderDetailsStyle.status} mt-15 mb-15`}> 
         <img src={imgDone} alt="готово" />
@@ -15,3 +16,5 @@ export default function OrderDetails () {
     </div>
   );
 };
+
+OrderDetails.propTypes = { id: PropTypes.number.isRequired }
