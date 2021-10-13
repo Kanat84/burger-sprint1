@@ -27,7 +27,7 @@ export default function LoginPage() {
                     </div>
                     <div className={`${styles.box} mb-6`}>
                         <Input
-                            type={'text'}
+                            type={'password'}
                             placeholder={'Пароль'}
                             onChange={handleChange}
                             icon={'ShowIcon'}
