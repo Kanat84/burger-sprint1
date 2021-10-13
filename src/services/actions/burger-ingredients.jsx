@@ -1,4 +1,4 @@
-import { getData } from "../../utils/consts";
+import { getData, apiURL } from "../../utils/consts";
 
 export const GET_INGREDIENTS_REQUEST = 'GET_ITEMS_REQUEST';
 export const GET_INGREDIENTS_SUCCESS = 'GET_ITEMS_SUCCESS';
@@ -9,7 +9,7 @@ export const REMOVE_INGREDIENT_FROM_MODAL = 'REMOVE_INGREDIENT_FROM_MODAL';
 export const getIngredients = () => {
     return function (dispatch) {
         dispatch({ type: GET_INGREDIENTS_REQUEST })
-        getData('https://norma.nomoreparties.space/api/ingredients')
+        getData(`${apiURL}/ingredients`)
             .then(res => {
                 if (res.ok) {
                     return res.json();

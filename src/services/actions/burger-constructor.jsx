@@ -1,4 +1,4 @@
-import { sendData } from "../../utils/consts";
+import { sendData, apiURL } from "../../utils/consts";
 
 export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
 export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
@@ -16,7 +16,7 @@ export const postOrder = (idsArr) => {
             type: GET_ORDER_REQUEST
         })
         sendData({
-            url: 'https://norma.nomoreparties.space/api/orders',
+            url: `${apiURL}/orders`,
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

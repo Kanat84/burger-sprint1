@@ -15,3 +15,5 @@ export const calculateTotalPrice = (items) => {
         return item.type === 'bun' ? item.price * 2 + acc : item.price + acc;
     })
 }
+
+export const apiURL = 'https://norma.nomoreparties.space/api';

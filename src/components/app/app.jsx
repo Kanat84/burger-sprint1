@@ -1,21 +1,23 @@
-//import React, { useState, useEffect } from 'react';
-import appStyles from './app.module.css';
+import { Switch, Route, useLocation, useHistory } from 'react-router-dom';
+
+//import appStyles from './app.module.css';
 import AppHeader from '../app-header/app-header';
-import BurgerConstructor from '../burger-constructor/burger-constructor';
-import BurgerIngredients from '../burger-ingredients/burger-ingredients';
-//import data from '../../utils/data';
+import Home from '../../pages/home';
+import NotFound404  from '../../pages/not-found';
 
 export default function App() {
+    const location = useLocation();
+    const history = useHistory();
+    const background = history.action === 'PUSH' && location.state && location.state.background;
+
     return (
         <div>
             <AppHeader />
             <main>
-                <div className={`${appStyles.container} pl-5 pr-5`}>
-                    <div className={appStyles.main__container}>
-                       <BurgerIngredients />                        
-                       <BurgerConstructor />
-                    </div>                    
-                </div>
+                <Switch location={background || location}> 
+                    <Route exact path="/" component={ Home } />                       
+                    <Route component={ NotFound404 } />                                              
+                </Switch>
             </main>
         </div>
     );

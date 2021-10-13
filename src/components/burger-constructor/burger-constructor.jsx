@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import constructorStyle from './burger-constructor.module.css';
+import style from './burger-constructor.module.css';
 import { Button, CurrencyIcon, ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 //import PropTypes from "prop-types";
 //import dataPropTypes from "../../utils/prop-types";
@@ -53,33 +53,33 @@ export default function BurgerConstructor() {
 
     return (
         <>
-            <div ref={dropTarget} className={`${constructorStyle.constructor} mt-25`}>
-                <ul className={`${constructorStyle.list}`}>
-                    <li className={`${constructorStyle.item} ${isHover ? constructorStyle.item_isHovering : ''}`}>
+            <div ref={dropTarget} className={`${style.constructor} mt-25`}>
+                <ul className={`${style.list}`}>
+                    <li className={`${style.item} ${isHover ? style.item_isHovering : ''}`}>
                         {bun ? (                        
                             <ConstructorElement type="top" isLocked={true} text={`${bun.name} (верх)`} price={bun.price} thumbnail={bun.image} />
                         ) : (
-                            <div className={`${constructorStyle.nobun_top} text text_type_main-default`}><p>Выберите булочку</p></div>
+                            <div className={`${style.nobun_top} text text_type_main-default`}><p>Выберите булочку</p></div>
                         )}                        
                     </li>
-                    <li className={`${constructorStyle.item} ${isHover ? constructorStyle.item_isHovering : ''}`}>
-                        <ul className={constructorStyle.list__scroll} style={{display: 'flex', flexDirection: 'column', gap: '10px', alignItems: "flex-end"}}>
+                    <li className={`${style.item} ${isHover ? style.item_isHovering : ''}`}>
+                        <ul className={style.list__scroll} style={{display: 'flex', flexDirection: 'column', gap: '10px', alignItems: "flex-end"}}>
                             {ingredients.map((item, idx) => {
                                 return <BurgerConstructorItem {...item} index={idx} key={item.uuid}/>
                             })}
                         </ul>
                     </li>                    
-                    <li className={`${constructorStyle.item} ${isHover ? constructorStyle.item_isHovering : ''}`}>
+                    <li className={`${style.item} ${isHover ? style.item_isHovering : ''}`}>
                         {bun ? (
                             <ConstructorElement type="bottom" isLocked={true} text={`${bun.name} (низ)`} price={bun.price} thumbnail={bun.image} />
                         ) : (
-                            <div className={`${constructorStyle.nobun_bottom} text text_type_main-default`}><p>Выберите булочку</p></div>
+                            <div className={`${style.nobun_bottom} text text_type_main-default`}><p>Выберите булочку</p></div>
                         )}
                     </li>
                 </ul>
                 {(ingredients || bun) && (
-                    <div className={`${constructorStyle.price__box} mr-8`}>
-                        <div className={`${constructorStyle.price} mr-10`}>
+                    <div className={`${style.price__box} mr-8`}>
+                        <div className={`${style.price} mr-10`}>
                             <span className="text text_type_digits-medium">{totalPrice}</span>
                             <CurrencyIcon type="primary" />
                         </div>

@@ -1,0 +1,18 @@
+.container {
+    padding: var(--container-padding);
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - var(--container-padding) * 2);   
+  }
+  
+  .content {
+    margin: auto; 
+    text-align: center;   
+  }
+  
+  .link {
+    text-decoration: none;
+    color: #8585AD;
+    display: flex;
+    justify-content: center;
+  }
