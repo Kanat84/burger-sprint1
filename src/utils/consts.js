@@ -17,3 +17,4 @@ export const calculateTotalPrice = (items) => {
 }
 
 export const apiURL = 'https://norma.nomoreparties.space/api';
+
