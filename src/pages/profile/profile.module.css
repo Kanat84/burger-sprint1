@@ -1,0 +1,49 @@
+.form {
+    min-width: 100%;
+    text-align: right;
+}
+
+.form .input {
+    width: 100%;
+}
+
+.form__buttons {
+    display: flex;
+    max-width: 480px;
+    justify-content: flex-start;
+    flex-direction: row-reverse;
+}
+
+.container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+  
+.text {
+    width: 100%;
+}
+
+.menu {
+    padding: 0;
+    list-style-type: none;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.menuItem {
+    width: 320px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+}
+
+.cont {
+    display: flex;
+    flex-direction: column;
+}
+
+.menuSubtitle {
+    max-width: 320px;
+    opacity: .4;
+}

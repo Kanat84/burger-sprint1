@@ -1,11 +1,10 @@
-import React, { useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import style from './burger-constructor.module.css';
 import { Button, CurrencyIcon, ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
-//import PropTypes from "prop-types";
-//import dataPropTypes from "../../utils/prop-types";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
-import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
 import { v4 as uuidv4 } from 'uuid';
 import BurgerConstructorItem from "../burger-constructor-item/burger-constructor-item";
@@ -14,12 +13,14 @@ import { ADD_BUN_TO_CONSTRUCTOR, ADD_INGREDIENT_TO_CONSTRUCTOR, CLEAR_CONSTRUCTO
 export default function BurgerConstructor() {  
     const [modalActive, setModalActive] = useState(false);
 
-    const { ingredients, bun, order } = useSelector(state => ({
+    const { ingredients, bun, order, isAuth } = useSelector(state => ({
         ingredients: state.burgerConstructor.ingredients,
         bun: state.burgerConstructor.bun,
-        order: state.burgerConstructor.order
+        order: state.burgerConstructor.order,
+        isAuth: state.usersData.isAuth      
     }));
     const dispatch = useDispatch();
+    const history = useHistory();
 
     function moveIngredient (ingredient) {
         dispatch({ type: ingredient.type === 'bun' ? ADD_BUN_TO_CONSTRUCTOR : ADD_INGREDIENT_TO_CONSTRUCTOR,
@@ -33,6 +34,9 @@ export default function BurgerConstructor() {
     });
 
     function handleOpenModal () {
+        if (!isAuth) {
+            history.push('/login');
+        }        
         if (!bun) { return alert('Выберите булочку'); }
         const idsArr = [...ingredients.map(item => item._id), bun._id, bun._id];
         dispatch(postOrder(idsArr));

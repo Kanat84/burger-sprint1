@@ -1,11 +1,13 @@
 //import React from 'react';
+import { useDrag }  from "react-dnd";
+import { useSelector } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
 import style from './burger-ingredients-detail.module.css';
 import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from 'prop-types';
-import { useDrag }  from "react-dnd";
-import { useSelector } from "react-redux";
 
 export default function BurgerIngredientDetail(props) {
+    const location = useLocation();
     const {ingredients, bun} = useSelector(state => state.burgerConstructor);
     let ingredientsCount = ingredients.filter((item) => item._id === props._id).length;
     let counter;
@@ -27,7 +29,8 @@ export default function BurgerIngredientDetail(props) {
     })
 
     return (
-        <div ref={ref} draggable className={style.product} style={{opacity: opacity}} onClick={props.onOpen} _id={props._id}>
+        <Link to={{ pathname: `/ingredients/${props._id}`, state: {background: location} }}
+            ref={ref} draggable className={style.product} style={{opacity: opacity}} onClick={props.onOpen} _id={props._id}>
             {counter && <Counter count={counter} />}
             <img className={`${style.image} pr-4 pl-4`} src={props.image} alt=""/>
             <div className={`${style.price} mt-1 mb-1`}>
@@ -35,7 +38,7 @@ export default function BurgerIngredientDetail(props) {
                 <CurrencyIcon type="primary" />
             </div>
             <p className={`${style.name} text text_type_main-default mt-1 mb-10`}>{props.name}</p>
-        </div>
+        </Link>
     )
 }
 

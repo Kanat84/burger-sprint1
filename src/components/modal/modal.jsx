@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import ReactDOM from "react-dom";
 import style from './modal.module.css';
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 
 export default function Modal (props) {  
+
     function handleCloseModal (e) {
         if (e.keyCode === 27) {
             props.onClose(e);

@@ -1,4 +1,5 @@
-import { sendData, apiURL } from "../../utils/consts";
+import { apiURL } from "../../utils/consts";
+import { sendData } from "../../utils/funcs";
 
 export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
 export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
@@ -10,7 +11,7 @@ export const ADD_BUN_TO_CONSTRUCTOR = 'ADD_BUN_TO_CONSTRUCTOR';
 export const MOVE_INGREDIENT_IN_CONSTRUCTOR = 'MOVE_INGREDIENT_IN_CONSTRUCTOR';
 export const CLEAR_CONSTRUCTOR = 'CLEAR_CONSTRUCTOR';
 
-export const postOrder = (idsArr) => {
+export function postOrder(idsArr) {
     return function (dispatch) {
         dispatch({
             type: GET_ORDER_REQUEST

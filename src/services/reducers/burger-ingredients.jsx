@@ -8,7 +8,7 @@ const initialState = {
     ingredientDetails: {}
 };
 
-export const burgerIngredientsReducer = (state = initialState, action) => {
+export function burgerIngredientsReducer(state = initialState, action) {
     switch (action.type) {
         case GET_INGREDIENTS_REQUEST: {
             return { ...state, ingredientsRequest: true };

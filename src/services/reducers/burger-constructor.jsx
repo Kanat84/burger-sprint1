@@ -10,7 +10,7 @@ const initialState = {
     totalPrice: 0
 }
 
-export const constructorReducer = (state = initialState, action) => {
+export function constructorReducer(state = initialState, action) {
     switch(action.type) {
         case GET_ORDER_FAILED:
             return {

@@ -42,13 +42,13 @@
     margin-left: 8px;
 }
 
-.nav__link.active {
+.nav__linkActive {
     color: #F2F2F3;
 }
 
 .login {
     cursor: pointer;
-    color: #8585AD;
+    /*color: #8585AD;*/
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -60,3 +60,8 @@
     margin-left: 8px;
 }
 
+.container {
+    max-width: 1280px;
+    margin: auto;
+    box-sizing: border-box;
+  }

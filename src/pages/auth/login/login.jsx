@@ -1,41 +1,58 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useHistory, Redirect, useLocation } from 'react-router-dom';
 import styles from './login.module.css';
-import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-
+import { Input, Button, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
+import { postLogin } from "../../../services/actions/users";
 
 export default function LoginPage() {
+    const history = useHistory();
+    const location = useLocation();    
+    const dispatch = useDispatch();
+
     const [form, setValue] = useState({ email: '', password: '' });
+    const { isAuth } = useSelector(state => state.usersData);
+    let { from } = location.state || {from: {pathname: '/'}}
+
     function handleChange(e) {
-        setValue({ ...form, [e.target.name]: e.target.value });
-    };
+        setValue({ ...form, [e.target.name]: e.target.value })
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        dispatch(postLogin({ email: form.email, password: form.password }, history, from)) 
+    }
+
+    if (isAuth) {
+        return (<Redirect to={{pathname: '/'}} />)
+    }
 
     return (
         <div className={styles.wrapper}>
             <div className={styles.container}>
-                <form className={styles.form} onSubmit={''}>
+                <form className={styles.form} onSubmit={handleSubmit}>
                     <h1 className={`${styles.title} text text_type_main-medium`}>Вход</h1>
                     <div className={`${styles.box} mt-6 mb-6`}>
                         <Input
-                            type={'text'}
+                            type={'email'}
                             placeholder={'E-mail'}
                             onChange={handleChange}
                             name={'email'}
                             errorText={'Ошибка'}
-                            value={form.email}
+                            value={form.email} 
                         />
                     </div>
                     <div className={`${styles.box} mb-6`}>
-                        <Input
+                        <PasswordInput
                             type={'password'}
-                            placeholder={'Пароль'}
+                            placeholder='Пароль'
                             onChange={handleChange}
                             icon={'ShowIcon'}
                             name={'password'}
-                            error={false}
-                            onIconClick={''}
+                            error={false}                            
                             errorText={'Ошибка'}
-                            value={form.password}
+                            size={"default"}
+                            value={form.password}                             
                         />
                     </div>
                     <div className={`${styles.box} mb-20`}>

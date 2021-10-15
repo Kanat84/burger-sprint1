@@ -56,16 +56,16 @@
     padding: 16px 24px;
   }
   
-  .nobun_top {
-    composes: nobun;
-    border-radius: var(--top-constructor-item-border-radius);
-  }
-  
-  .nobun_bottom {
-    composes: nobun;
-    border-radius: var(--bottom-constructor-item-border-radius);
-  }
-  
-  .item_isHovering {
-    border: 1px solid red;
-  }
+.nobun_top {
+  composes: nobun;
+  border-radius: var(--top-constructor-item-border-radius);
+}
+
+.nobun_bottom {
+  composes: nobun;
+  border-radius: var(--bottom-constructor-item-border-radius);
+}
+
+.item_isHovering {
+  border: 1px solid red;
+}

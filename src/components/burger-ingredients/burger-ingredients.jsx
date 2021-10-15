@@ -1,13 +1,12 @@
-import React, { createRef, useState, useEffect } from 'react';
+import { createRef, useState, useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory, useLocation } from "react-router-dom";
 import style from './burger-ingredients.module.css';
 import appStyles from '../app/app.module.css';
 import BurgerIngrediensDetail from "../burger-ingredients-detail/burger-ingredients-detail";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-//import PropTypes from 'prop-types';
-//import dataPropTypes from "../../utils/prop-types";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import { useDispatch, useSelector } from "react-redux";
 import { REMOVE_INGREDIENT_FROM_MODAL, SET_INGREDIENT_TO_MODAL, getIngredients } from "../../services/actions/burger-ingredients";
 
 export default function BurgerIngredients() {
@@ -18,11 +17,14 @@ export default function BurgerIngredients() {
     const saucesRef = createRef();
     const mainsRef  = createRef();        
     const dispatch = useDispatch();
+    const history = useHistory();
+    const location = useLocation();
     useEffect(() => { dispatch(getIngredients()) }, [dispatch]);
 
     function handleCloseModal () {
         setModalActive(false);
         dispatch({ type: REMOVE_INGREDIENT_FROM_MODAL })
+        history.replace(location);
     }
     function handleTabClick (value) { 
         setCurrent(value); 
@@ -64,7 +66,7 @@ export default function BurgerIngredients() {
                             <Tab value="main" active={current === 'main'} onClick={handleTabClick}>Начинки</Tab>
                         </a>
                     </div>
-                    <div className={`${style.ingredients} mt-10`}>
+                    <div className="mt-10">
                         <div className={style.products} onScroll={handleScroll}>
                             <h3 className="text text_type_main-medium" ref={bunsRef} id="bun">Булки</h3>
                             <div className={style.products__cont}>

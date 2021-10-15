@@ -1,4 +1,5 @@
-import { getData, apiURL } from "../../utils/consts";
+import { apiURL } from "../../utils/consts";
+import { getData } from "../../utils/funcs";
 
 export const GET_INGREDIENTS_REQUEST = 'GET_ITEMS_REQUEST';
 export const GET_INGREDIENTS_SUCCESS = 'GET_ITEMS_SUCCESS';
@@ -6,7 +7,7 @@ export const GET_INGREDIENTS_FAILED = 'GET_ITEMS_FAILED';
 export const SET_INGREDIENT_TO_MODAL = 'SET_INGREDIENT_TO_MODAL';
 export const REMOVE_INGREDIENT_FROM_MODAL = 'REMOVE_INGREDIENT_FROM_MODAL';
 
-export const getIngredients = () => {
+export function getIngredients() {
     return function (dispatch) {
         dispatch({ type: GET_INGREDIENTS_REQUEST })
         getData(`${apiURL}/ingredients`)
