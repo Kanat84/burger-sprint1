@@ -10,7 +10,6 @@ export default function AppHeader() {
   const isLogin = !!useRouteMatch('/login');
   const isOrder = !!useRouteMatch('/orders');  
   const isIngredient = !!useRouteMatch('/ingredients/:id');  
-  console.log(isConstructor, isIngredient) 
 
   return (
       <header className={`${styles.header} p-4`}>

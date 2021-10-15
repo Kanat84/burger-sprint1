@@ -2,14 +2,13 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory, Redirect } from 'react-router-dom';
 import styles from './reset-password.module.css';
-import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
+import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { postResetPassword, DELETE_WAS_ON_FORGOT_PAGE } from "../../../services/actions/users";
 
 export default function ResetPasswordPage() {
     const history = useHistory();
     const dispatch = useDispatch();
     const { wasOnForgotPass, isAuth } = useSelector(state => state.usersData);
-console.log(wasOnForgotPass);
     const [form, setValue] = useState({ password: "", token: "" })
 
     function handleChange(e) {
@@ -34,7 +33,7 @@ console.log(wasOnForgotPass);
                 <form className={styles.form} onSubmit={handleSubmit}>
                     <h1 className={`${styles.title} text text_type_main-medium`}>Восстановление пароля</h1>
                     <div className={`${styles.box} mt-6 mb-6`}>
-                        <Input
+                        <PasswordInput
                             type={'password'}
                             placeholder={'Введите новый пароль'}
                             onChange={handleChange}

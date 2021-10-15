@@ -23,7 +23,7 @@ export function postForgotPassword(emailValue, history) {
             .then(res => checkResponse(res))
             .then(res => {
                     if (res && res.success) {
-                        console.log(res);
+                  //      console.log(res);
                         history.push('/reset-password');
                     } else {
                         dispatch({ type: GET_USER_FAILED })
