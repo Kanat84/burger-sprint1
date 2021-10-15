@@ -58,11 +58,11 @@ console.log(wasOnForgotPass);
                     <div className={`${styles.box} mb-20`}>
                         <Button type="primary" size="medium">Сохранить</Button>
                     </div>
-                    <p className={`${styles.text} text text_type_main-default`}>Вспомнили пароль?
-                        <Link to="/login"> 
-                            <span className={styles.link}>Войти</span>
-                        </Link>
-                    </p>
+                    <div className={styles.link}>                
+                        <p className="text text_type_main-default text_color_inactive mb-4">Вспомнили пароль? <Link 
+                            to="/login" className="text text_color_accent">Войти</Link>
+                        </p>
+                    </div>                    
                 </form>
             </div>
         </div>
