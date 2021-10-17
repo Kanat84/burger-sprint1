@@ -5,7 +5,6 @@ import { HomePage, NotFound404, LoginPage, RegisterPage, ForgotPasswordPage, Res
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import { ProtectedRoute } from "../../utils/funcs";
 
-
 export default function App() {
     const location = useLocation();
     const history = useHistory();
