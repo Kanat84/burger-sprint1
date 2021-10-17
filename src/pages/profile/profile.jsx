@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import styles from "./profile.module.css";
-import { Button, EmailInput, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Button, EmailInput, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { postLogout, getUserInfo, postChangeUserInfo } from "../../services/actions/users";
 
 export default function ProfilePage() {
@@ -19,8 +19,8 @@ export default function ProfilePage() {
     }, [dispatch])
 
     useEffect(() => {
-        setValue({ ...form, email: user.email, name: user.name })
-    }, [user])
+        setValue({ ...form, email: user.email, name: user.name }) 
+    }, [user])  // eslint-disable-line react-hooks/exhaustive-deps
 
     function handleChange(e) {
         setValue({ ...form, [e.target.name]: e.target.value })

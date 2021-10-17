@@ -1,21 +1,15 @@
 import { Switch, Route, useLocation, useHistory } from 'react-router-dom';
-
 import styles from './app.module.css';
 import AppHeader from '../app-header/app-header';
-import HomePage from '../../pages/home/home';
-import NotFound404 from '../../pages/not-found/not-found';
-import LoginPage from '../../pages/auth/login/login';
-import RegisterPage from '../../pages/auth/register/register';
-import ForgotPasswordPage from '../../pages/auth/forgot-password/forgot-password';
-import ResetPasswordPage from '../../pages/auth/reset-password/reset-password';
-import ProfilePage from '../../pages/profile/profile';
+import { HomePage, NotFound404, LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage, ProfilePage} from '../../pages';
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import { ProtectedRoute } from "../../utils/funcs";
+
 
 export default function App() {
     const location = useLocation();
     const history = useHistory();
-    const background = history.action === 'PUSH' && location.state && location.state.background;
+    const background = (history.action === 'PUSH' || history.action === 'REPLACE') && location.state && location.state.background;
 
     return (
         <div>
@@ -29,13 +23,13 @@ export default function App() {
                             <Route exact path="/forgot-password" component={ ForgotPasswordPage } /> 
                             <Route exact path="/reset-password" component={ ResetPasswordPage } />                     
                             <ProtectedRoute exact path="/profile"><ProfilePage /></ProtectedRoute>
-                            <Route exact path={"/ingredients/:id"} component={ IngredientDetails } />                                                                                                                   
+                            <Route exact path={"/ingredients/:id"} component={ IngredientDetails } />
                             <Route exact path="/" component={ HomePage } />                                          
-                            <Route exact path="*" component={ NotFound404 } />                       
-                        </Switch>
+                            <Route exact path="" component={ NotFound404 } />                       
+                        </Switch>                                     
                     </div>                    
                 </div>                
-            </main>
+            </main>       
         </div>
     );
 }
