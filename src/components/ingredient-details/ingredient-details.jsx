@@ -1,41 +1,62 @@
-//import React from 'react';
-import ingredientDetailsStyle from './ingredient-details.module.css';
-import PropTypes from 'prop-types';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import style from './ingredient-details.module.css';
+import { getIngredients } from "../../services/actions/burger-ingredients";
 
-export default function IngredientDetails (props) {
-    return (
-        <div className={ingredientDetailsStyle.body}>
-            <img src={props.data.image_large} alt={props.data.name} className="mb-4" />
-            <p className={`${ingredientDetailsStyle.title} text text_type_main-medium mb-8`}>{props.data.name}</p>
-            <div className={`${ingredientDetailsStyle.card}`}>
-                <div className={`${ingredientDetailsStyle.text} mr-5`}>
-                    <p className="text text_type_main-default">Калории, ккал</p>
-                    <p className="text text_type_digits-default">{props.data.calories}</p>
+export default function IngredientDetails() {
+    const dispatch = useDispatch();
+    const { ingredients, ingredientDetails } = useSelector(state => state.burgerIngredients);
+    const { id } = useParams();
+    let ingredient;
+    useEffect(() => {
+        if (ingredients.length <= 0) {
+            dispatch(getIngredients())
+        }
+    }, [dispatch, ingredients.length]);
+
+    function isEmptyObj(obj) {
+        for (var key in obj) {
+            return false;
+        }
+        return true;
+    }
+    
+    if (!isEmptyObj(ingredientDetails)) {
+        ingredient = ingredientDetails;
+    } else {
+        ingredient = ingredients.find((item) => item._id === id);
+    }
+
+    return (        
+        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', margin: 'auto'}}>
+            {isEmptyObj(ingredientDetails) && (
+                <h1 className={`${style.title}  mt-30 text text_color_primary text_type_main-large`}>Детали ингредиента</h1>
+            )}
+            {ingredient && ( 
+                <div className={style.body}>
+                    <img src={ingredient?.image_large} alt={ingredient?.name} className="mb-4" />
+                    <p className={`${style.title} text text_type_main-medium mb-8`}>{ingredient?.name}</p>        
+                    <div className={`${style.card}`}>
+                        <div className={`${style.text} mr-5`}>
+                            <p className="text text_type_main-default">Калории, ккал</p>
+                            <p className="text text_type_digits-default">{ingredient?.calories}</p>
+                        </div>
+                        <div className={`${style.text} mr-5`}>
+                            <p className="text text_type_main-default">Белки, г</p>
+                            <p className="text text_type_digits-default">{ingredient?.proteins}</p>
+                        </div>
+                        <div className={`${style.text} mr-5`}>
+                            <p className="text text_type_main-default">Жиры, г</p>
+                            <p className="text text_type_digits-default">{ingredient?.fat}</p>
+                        </div>
+                        <div className={`${style.text} mr-5`}>
+                            <p className="text text_type_main-default">Углеводы, г</p>
+                            <p className="text text_type_digits-default">{ingredient?.carbohydrates}</p>
+                        </div>
+                    </div>                    
                 </div>
-                <div className={`${ingredientDetailsStyle.text} mr-5`}>
-                    <p className="text text_type_main-default">Белки, г</p>
-                    <p className="text text_type_digits-default">{props.data.proteins}</p>
-                </div>
-                <div className={`${ingredientDetailsStyle.text} mr-5`}>
-                    <p className="text text_type_main-default">Жиры, г</p>
-                    <p className="text text_type_digits-default">{props.data.fat}</p>
-                </div>
-                <div className={ingredientDetailsStyle.text}>
-                    <p className="text text_type_main-default">Углеводы, г</p>
-                    <p className="text text_type_digits-default">{props.data.carbohydrates}</p>
-                </div>
-            </div>
-        </div>
+            )}
+        </div>        
     );
-};
-
-IngredientDetails.propTypes = {
-    data: PropTypes.shape({
-        image_large: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        calories: PropTypes.number.isRequired,
-        carbohydrates: PropTypes.number.isRequired,
-        fat: PropTypes.number.isRequired,
-        proteins: PropTypes.number.isRequired,
-    }).isRequired
 };

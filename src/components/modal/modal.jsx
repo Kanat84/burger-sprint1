@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import ReactDOM from "react-dom";
-import modalStyle from './modal.module.css';
+import style from './modal.module.css';
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 
 export default function Modal (props) {  
+
     function handleCloseModal (e) {
         if (e.keyCode === 27) {
             props.onClose(e);
@@ -20,10 +21,10 @@ export default function Modal (props) {
     return ReactDOM.createPortal(
         <>
             <ModalOverlay onClose={props.onClose} />   
-            <div className={`${modalStyle.modal} pt-10 pr-10 pl-10 pb-15`}>
-                <div className={modalStyle.header}>
-                    <h3 className={`${modalStyle.title} text text_type_main-large`}>{props.title}</h3>
-                    <div className={modalStyle.close} onClick={props.onClose}>
+            <div className={`${style.modal} pt-10 pr-10 pl-10 pb-15`}>
+                <div className={style.header}>
+                    <h3 className={`${style.title} text text_type_main-large`}>{props.title}</h3>
+                    <div className={style.close} onClick={props.onClose}>
                         <CloseIcon type={"primary"} />
                     </div> 
                 </div>

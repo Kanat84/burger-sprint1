@@ -1,11 +1,10 @@
-import React, { useState, useMemo } from 'react';
-import constructorStyle from './burger-constructor.module.css';
+import { useState, useMemo } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import style from './burger-constructor.module.css';
 import { Button, CurrencyIcon, ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
-//import PropTypes from "prop-types";
-//import dataPropTypes from "../../utils/prop-types";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
-import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
 import { v4 as uuidv4 } from 'uuid';
 import BurgerConstructorItem from "../burger-constructor-item/burger-constructor-item";
@@ -14,12 +13,14 @@ import { ADD_BUN_TO_CONSTRUCTOR, ADD_INGREDIENT_TO_CONSTRUCTOR, CLEAR_CONSTRUCTO
 export default function BurgerConstructor() {  
     const [modalActive, setModalActive] = useState(false);
 
-    const { ingredients, bun, order } = useSelector(state => ({
+    const { ingredients, bun, order, isAuth } = useSelector(state => ({
         ingredients: state.burgerConstructor.ingredients,
         bun: state.burgerConstructor.bun,
-        order: state.burgerConstructor.order
+        order: state.burgerConstructor.order,
+        isAuth: state.usersData.isAuth      
     }));
     const dispatch = useDispatch();
+    const history = useHistory();
 
     function moveIngredient (ingredient) {
         dispatch({ type: ingredient.type === 'bun' ? ADD_BUN_TO_CONSTRUCTOR : ADD_INGREDIENT_TO_CONSTRUCTOR,
@@ -33,6 +34,9 @@ export default function BurgerConstructor() {
     });
 
     function handleOpenModal () {
+        if (!isAuth) {
+            history.push('/login');
+        }        
         if (!bun) { return alert('Выберите булочку'); }
         const idsArr = [...ingredients.map(item => item._id), bun._id, bun._id];
         dispatch(postOrder(idsArr));
@@ -53,33 +57,33 @@ export default function BurgerConstructor() {
 
     return (
         <>
-            <div ref={dropTarget} className={`${constructorStyle.constructor} mt-25`}>
-                <ul className={`${constructorStyle.list}`}>
-                    <li className={`${constructorStyle.item} ${isHover ? constructorStyle.item_isHovering : ''}`}>
+            <div ref={dropTarget} className={`${style.constructor} mt-25`}>
+                <ul className={`${style.list}`}>
+                    <li className={`${style.item} ${isHover ? style.item_isHovering : ''}`}>
                         {bun ? (                        
                             <ConstructorElement type="top" isLocked={true} text={`${bun.name} (верх)`} price={bun.price} thumbnail={bun.image} />
                         ) : (
-                            <div className={`${constructorStyle.nobun_top} text text_type_main-default`}><p>Выберите булочку</p></div>
+                            <div className={`${style.nobun_top} text text_type_main-default`}><p>Выберите булочку</p></div>
                         )}                        
                     </li>
-                    <li className={`${constructorStyle.item} ${isHover ? constructorStyle.item_isHovering : ''}`}>
-                        <ul className={constructorStyle.list__scroll} style={{display: 'flex', flexDirection: 'column', gap: '10px', alignItems: "flex-end"}}>
+                    <li className={`${style.item} ${isHover ? style.item_isHovering : ''}`}>
+                        <ul className={style.list__scroll} style={{display: 'flex', flexDirection: 'column', gap: '10px', alignItems: "flex-end"}}>
                             {ingredients.map((item, idx) => {
                                 return <BurgerConstructorItem {...item} index={idx} key={item.uuid}/>
                             })}
                         </ul>
                     </li>                    
-                    <li className={`${constructorStyle.item} ${isHover ? constructorStyle.item_isHovering : ''}`}>
+                    <li className={`${style.item} ${isHover ? style.item_isHovering : ''}`}>
                         {bun ? (
                             <ConstructorElement type="bottom" isLocked={true} text={`${bun.name} (низ)`} price={bun.price} thumbnail={bun.image} />
                         ) : (
-                            <div className={`${constructorStyle.nobun_bottom} text text_type_main-default`}><p>Выберите булочку</p></div>
+                            <div className={`${style.nobun_bottom} text text_type_main-default`}><p>Выберите булочку</p></div>
                         )}
                     </li>
                 </ul>
                 {(ingredients || bun) && (
-                    <div className={`${constructorStyle.price__box} mr-8`}>
-                        <div className={`${constructorStyle.price} mr-10`}>
+                    <div className={`${style.price__box} mr-8`}>
+                        <div className={`${style.price} mr-10`}>
                             <span className="text text_type_digits-medium">{totalPrice}</span>
                             <CurrencyIcon type="primary" />
                         </div>
