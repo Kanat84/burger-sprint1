@@ -1,14 +1,22 @@
 import { GET_INGREDIENTS_REQUEST, GET_INGREDIENTS_SUCCESS, GET_INGREDIENTS_FAILED, SET_INGREDIENT_TO_MODAL, 
     REMOVE_INGREDIENT_FROM_MODAL } from "../actions/burger-ingredients";
- 
-const initialState = {
+import { TIngredient } from '../../utils/prop-types';
+
+type TInitialState = {
+    ingredients: TIngredient[];
+    ingredientsRequest: false;
+    ingredientsFailed: false;
+    ingredientDetails: TIngredient | {}
+}
+
+const initialState: TInitialState = {
     ingredients: [],
     ingredientsRequest: false,
     ingredientsFailed: false,
     ingredientDetails: {}
 };
 
-export function burgerIngredientsReducer(state = initialState, action) {
+export function burgerIngredientsReducer(state = initialState, action: any) {
     switch (action.type) {
         case GET_INGREDIENTS_REQUEST: {
             return { ...state, ingredientsRequest: true };

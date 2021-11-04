@@ -4,9 +4,10 @@ import AppHeader from '../app-header/app-header';
 import { HomePage, NotFound404, LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage, ProfilePage} from '../../pages';
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import { ProtectedRoute } from "../../utils/funcs";
+import { TLocationState } from '../../utils/prop-types';
 
 export default function App() {
-    const location = useLocation();
+    const location = useLocation<TLocationState>();
     const history = useHistory();
     const background = (history.action === 'PUSH' || history.action === 'REPLACE') && location.state && location.state.background;
 

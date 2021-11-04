@@ -1,3 +1,4 @@
+import { Dispatch } from "react";
 import { apiURL } from "../../utils/consts";
 import { getData } from "../../utils/funcs";
 
@@ -8,7 +9,7 @@ export const SET_INGREDIENT_TO_MODAL = 'SET_INGREDIENT_TO_MODAL';
 export const REMOVE_INGREDIENT_FROM_MODAL = 'REMOVE_INGREDIENT_FROM_MODAL';
 
 export function getIngredients() {
-    return function (dispatch) {
+    return function (dispatch: Dispatch<any>) {
         dispatch({ type: GET_INGREDIENTS_REQUEST })
         getData(`${apiURL}/ingredients`)
             .then(res => {

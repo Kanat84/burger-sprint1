@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, ChangeEvent, FormEvent } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory, Redirect, useLocation } from 'react-router-dom';
 import styles from './login.module.css';
@@ -7,18 +7,18 @@ import { postLogin } from "../../../services/actions/users";
 
 export default function LoginPage() {
     const history = useHistory();
-    const location = useLocation();    
+    const location = useLocation<{ from: Location }>();    
     const dispatch = useDispatch();
 
-    const [form, setValue] = useState({ email: '', password: '' });
-    const { isAuth } = useSelector(state => state.usersData);
+    const [form, setValue] = useState<{ email: string; password: string }>({ email: '', password: '' });
+    const { isAuth }: any = useSelector<any>(state => state.usersData);
     let { from } = location.state || {from: {pathname: '/'}}
 
-    function handleChange(e) {
+    function handleChange(e: ChangeEvent<HTMLInputElement>) {
         setValue({ ...form, [e.target.name]: e.target.value })
     }
 
-    function handleSubmit(e) {
+    function handleSubmit(e: FormEvent) {
         e.preventDefault();
         dispatch(postLogin({ email: form.email, password: form.password }, history, from)) 
     }
@@ -44,13 +44,13 @@ export default function LoginPage() {
                     </div>
                     <div className={`${styles.box} mb-6`}>
                         <PasswordInput
-                            type={'password'}
-                            placeholder='Пароль'
+                            //type={'password'}
+                            //placeholder='Пароль'
                             onChange={handleChange}
-                            icon={'ShowIcon'}
+                            //icon={'ShowIcon'}
                             name={'password'}
-                            error={false}                            
-                            errorText={'Ошибка'}
+                            //error={false}                            
+                            //errorText={'Ошибка'}
                             size={"default"}
                             value={form.password}                             
                         />

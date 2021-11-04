@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import style from './order-details.module.css';
 import imgDone from '../../images/image.svg';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
+import { TOrderDetailsProps } from '../../utils/prop-types';
 
-export default function OrderDetails ({id}) {
+//export default function OrderDetails ({id}) {
+const OrderDetails: FunctionComponent<TOrderDetailsProps> = ({id}) => {  
   return (
     <div className={`${style.order} pb-15`}>
       <h3 className={`${style.title} text text_primary_ligth text_type_digits-large`}>{id}</h3>
@@ -17,4 +19,5 @@ export default function OrderDetails ({id}) {
   );
 };
 
-OrderDetails.propTypes = { id: PropTypes.number.isRequired }
+//OrderDetails.propTypes = { id: PropTypes.number.isRequired }
+export default OrderDetails;

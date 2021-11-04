@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, ChangeEvent, FormEvent } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import styles from './register.module.css';
@@ -8,13 +8,13 @@ import { postRegister } from "../../../services/actions/users";
 export default function RegisterPage() {
     const history = useHistory();
     const dispatch = useDispatch();
-    const { isAuth } = useSelector(state => state.usersData);
+    const { isAuth }: any = useSelector<any>(state => state.usersData);
     
-    const [form, setValue] = useState({ email: '', password: '', name: '' })
-    function handleChange(e) {
+    const [form, setValue] = useState<{ email: string; password: string; name: string }>({ email: '', password: '', name: '' })
+    function handleChange(e: ChangeEvent<HTMLInputElement>) {
         setValue({ ...form, [e.target.name]: e.target.value });
     };
-    function handleSubmit(e) {
+    function handleSubmit(e: FormEvent) {
         e.preventDefault();
         dispatch(postRegister(form, history))
     }
@@ -49,13 +49,13 @@ export default function RegisterPage() {
                     </div>
                     <div className={`${styles.box} mb-6`}>
                         <PasswordInput
-                            type={'password'}
-                            placeholder={'Введите новый пароль'}
+                            //type={'password'}
+                            //placeholder={'Введите новый пароль'}
                             onChange={handleChange}
-                            icon={'ShowIcon'}
+                            //icon={'ShowIcon'}
                             name={'password'}
-                            error={false}
-                            errorText={'Ошибка'}
+                            //error={false}
+                            //errorText={'Ошибка'}
                             value={form.password}                              
                         />                                             
                     </div>

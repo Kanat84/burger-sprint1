@@ -1,4 +1,4 @@
-import { createRef, useState, useEffect } from 'react';
+import { createRef, useState, useEffect, SyntheticEvent } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import style from './burger-ingredients.module.css';
@@ -8,14 +8,16 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import { REMOVE_INGREDIENT_FROM_MODAL, SET_INGREDIENT_TO_MODAL, getIngredients } from "../../services/actions/burger-ingredients";
+import { TIngredient } from '../../utils/prop-types';
 
-export default function BurgerIngredients() {
-    const [current, setCurrent] = useState('bun');
-    const [modalActive, setModalActive] = useState(false);
-    const { ingredients, ingredientsRequest, ingredientsError, ingredientDetails } = useSelector(state => state.burgerIngredients) 
-    const bunsRef = createRef();
-    const saucesRef = createRef();
-    const mainsRef  = createRef();        
+export default function BurgerIngredients() { 
+    const [current, setCurrent] = useState<string>('bun');
+    const [modalActive, setModalActive] = useState<boolean>(false);
+    const { ingredients, ingredientsRequest, ingredientsError, ingredientDetails }: any = useSelector<any>(state => state.burgerIngredients) 
+    const bunsRef = createRef<HTMLDivElement>();
+    const saucesRef = createRef<HTMLDivElement>();
+    const mainsRef  = createRef<HTMLDivElement>(); 
+    const scrollRef = createRef<HTMLDivElement>();    
     const dispatch = useDispatch();
     const history = useHistory();
     const location = useLocation();
@@ -26,34 +28,35 @@ export default function BurgerIngredients() {
         dispatch({ type: REMOVE_INGREDIENT_FROM_MODAL })
         history.replace(location);
     }
-    function handleTabClick (value) { 
+    function handleTabClick (value: string) { 
         setCurrent(value); 
     }
-    function handleOpenModal (e) {
+    function handleOpenModal (e: SyntheticEvent) {
         const tar = e.currentTarget;
         const id = tar.getAttribute('_id');
-        dispatch({ type: SET_INGREDIENT_TO_MODAL, item: ingredients.find((item) => item._id === id) })        
+        dispatch({ type: SET_INGREDIENT_TO_MODAL, item: ingredients.find((item: TIngredient) => item._id === id) })        
         setModalActive(true);
     }    
-    function handleScroll (e) {
-        const scrollContainer = e.target;
-        const saucesContainer = saucesRef.current.getBoundingClientRect();
-        const mainsContainer = mainsRef.current.getBoundingClientRect();
-        if (scrollContainer.offsetTop - saucesContainer.top < 0) {
-            setCurrent('bun');
-        } else if (scrollContainer.offsetTop - mainsContainer.top < 0) {
-            setCurrent('sauce');
-        } else {
-            setCurrent('main');
+    function handleScroll (e: SyntheticEvent) {
+        const scrollContainer = scrollRef.current;    
+        const saucesContainer = saucesRef.current?.getBoundingClientRect();
+        const mainsContainer = mainsRef.current?.getBoundingClientRect();
+        if (scrollContainer !== null && saucesContainer && mainsContainer) {
+            if (scrollContainer.offsetTop - saucesContainer.top < 0) {
+                setCurrent('bun');
+            } else if (scrollContainer.offsetTop - mainsContainer.top < 0) {
+                setCurrent('sauce');
+            } else {
+                setCurrent('main');
+            }
         }
     }
-
     return (
         <>
             {ingredientsRequest && !ingredientsError && ( <h1>Идет загрузка...</h1> )}
             {ingredientsError && !ingredientsRequest && ( <h1>Произошла ошибка попробуйте позже</h1> )}
             {!ingredientsError && !ingredientsRequest && ingredients.length > 0 && (
-                <div className={style.constructor }>
+                <div className={style.constructor}>
                     <h1 className="text text_type_main-large mt-10">Соберите бургер</h1>
                     <div style={{ display: 'flex' }} className='mt-5'>
                         <a className={appStyles.link} href="#bun">
@@ -70,15 +73,15 @@ export default function BurgerIngredients() {
                         <div className={style.products} onScroll={handleScroll}>
                             <h3 className="text text_type_main-medium" ref={bunsRef} id="bun">Булки</h3>
                             <div className={style.products__cont}>
-                                {ingredients.filter((item) => item.type === 'bun').map((item) => <BurgerIngrediensDetail onOpen={handleOpenModal} {...item} key={item._id} />)}
+                                {ingredients.filter((item: TIngredient) => item.type === 'bun').map((item: TIngredient) => <BurgerIngrediensDetail onOpen={handleOpenModal} {...item} key={item._id} />)}
                             </div>
                             <h3 className="text text_type_main-medium" ref={saucesRef} id="sauce">Соусы</h3>
                             <div className={style.products__cont}>
-                                {ingredients.filter((item) => item.type === 'sauce').map((item) => <BurgerIngrediensDetail onOpen={handleOpenModal} {...item} key={item._id} />)}
+                                {ingredients.filter((item: TIngredient) => item.type === 'sauce').map((item: TIngredient) => <BurgerIngrediensDetail onOpen={handleOpenModal} {...item} key={item._id} />)}
                             </div>
                             <h3 className="text text_type_main-medium" ref={mainsRef} id="main">Начинки</h3>
                             <div className={style.products__cont}>
-                                {ingredients.filter((item) => item.type === 'main').map((item) => <BurgerIngrediensDetail onOpen={handleOpenModal} {...item} key={item._id} />)}
+                                {ingredients.filter((item: TIngredient) => item.type === 'main').map((item: TIngredient) => <BurgerIngrediensDetail onOpen={handleOpenModal} {...item} key={item._id} />)}
                             </div>
                         </div>
                     </div>
@@ -86,7 +89,7 @@ export default function BurgerIngredients() {
             )}
             {modalActive && ingredientDetails && (
                 <Modal onClose={handleCloseModal} title={'Детали ингредиента'}>
-                    <IngredientDetails data={ingredientDetails} />
+                    <IngredientDetails {...ingredientDetails} />
                 </Modal>)
             }
         </>
