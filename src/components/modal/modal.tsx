@@ -1,4 +1,4 @@
-import { KeyboardEvent } from 'react';
+import { useEffect } from 'react';
 import ReactDOM from "react-dom";
 import style from './modal.module.css';
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -6,17 +6,17 @@ import ModalOverlay from "../modal-overlay/modal-overlay";
 import { TModalProps } from '../../utils/prop-types';
 
 export default function Modal (props: TModalProps) {  
-    function handleCloseModal(e: KeyboardEvent) {
-        if (e.charCode === 27) {
+    function handleCloseModal(e: KeyboardEvent) {     
+        if (e.keyCode === 27) {
             props.onClose();
         }
     }
-   /* useEffect(() => {
+    useEffect(() => {
         document.addEventListener('keyup', handleCloseModal);
         return () => {
             document.removeEventListener('keyup', handleCloseModal);
         } 
-    })      */
+    })      
     return ReactDOM.createPortal(
         <>
             <ModalOverlay onClose={props.onClose} />   
