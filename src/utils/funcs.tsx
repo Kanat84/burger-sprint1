@@ -1,11 +1,9 @@
-import React, { FunctionComponent } from "react";
-import { render } from "react-dom";
 import { useSelector } from "react-redux";
 import { Redirect, Route } from 'react-router-dom';
 import { apiURL } from "./consts";
-import { TSetCookieProps, TProtectedRouteProps, TOptions, TBurgerConstructorProps } from './prop-types';
+import { TSetCookieProps, TProtectedRouteProps, TSendDataProps } from './prop-types';
 
-export async function sendData(options: TOptions) {
+export async function sendData(options: TSendDataProps) {
     return await fetch(options.url, {
         method: options.method,
         headers: options.headers,
@@ -15,12 +13,6 @@ export async function sendData(options: TOptions) {
 
 export async function getData(url: string) {
     return await fetch(url)
-}
-
-export function calculateTotalPrice(items: any) {
-    return items.reduce((acc: number, item: TBurgerConstructorProps) => {
-        return item.type === 'bun' ? item.price * 2 + acc : item.price + acc;
-    })
 }
 
 export function refreshToken() {
@@ -123,8 +115,7 @@ export async function patchUser(formData: { email: string; password: string; nam
     })
 }
 
-//export function ProtectedRoute({ children, exact, path }): FunctionComponent<TProtectedRouteProps> {
-export const ProtectedRoute: FunctionComponent<TProtectedRouteProps> = ({ children, exact, path }) => {    
+export function ProtectedRoute({ children, exact, path }: TProtectedRouteProps) {
     const { isAuth }: any = useSelector<any>(state => state.usersData);
     return (
         <Route

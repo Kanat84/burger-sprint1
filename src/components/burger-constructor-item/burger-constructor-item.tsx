@@ -1,14 +1,12 @@
-import { useRef, FunctionComponent, ReactElement } from 'react';
+import { useRef } from 'react';
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-//import PropTypes from 'prop-types';
 import constructorStyle from "../burger-constructor/burger-constructor.module.css";
 import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
 import { MOVE_INGREDIENT_IN_CONSTRUCTOR, REMOVE_INGREDIENT_FROM_CONSTRUCTOR } from "../../services/actions/burger-constructor";
 import { TIngredient, TBurgerConstructorIngredientProps } from '../../utils/prop-types';
 
-export default function BurgerConstructorIngredient (props: TBurgerConstructorIngredientProps): ReactElement {
-//export const BurgerConstructorIngredient: FunctionComponent<TBurgerConstructorIngredientProps> = (props) => {    
+export default function BurgerConstructorIngredient (props: TBurgerConstructorIngredientProps) {
     const dispatch = useDispatch();
     const handleRemoveIngredient = () => {
         dispatch({
@@ -24,7 +22,6 @@ export default function BurgerConstructorIngredient (props: TBurgerConstructorIn
             hoverIndex
         })
     }
-
     const [{ isDragging }, drag] = useDrag({
         type: 'sortable',
         item: () => {
@@ -70,13 +67,3 @@ export default function BurgerConstructorIngredient (props: TBurgerConstructorIn
         <ConstructorElement text={props.name} price={props.price} thumbnail={props.image} handleClose={handleRemoveIngredient} />
     </li>)
 }
-/*
-BurgerConstructorIngredient.propTypes = {
-    image: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    _id: PropTypes.string.isRequired,
-    uuid: PropTypes.string.isRequired,
-}*/
-
-//export default BurgerConstructorIngredient;

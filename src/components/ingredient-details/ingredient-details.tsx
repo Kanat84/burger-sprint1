@@ -21,14 +21,12 @@ export default function IngredientDetails() {
             return false;
         }
         return true;
-    }
-    
+    }    
     if (!isEmptyObj(ingredientDetails)) {
         ingredient = ingredientDetails;
     } else {
         ingredient = ingredients.find((item: TIngredient) => item._id === id);
     }
-
     return (        
         <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', margin: 'auto'}}>
             {isEmptyObj(ingredientDetails) && (

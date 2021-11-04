@@ -1,4 +1,4 @@
-import { useState, useMemo, FunctionComponent } from 'react';
+import { useState, useMemo } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import style from './burger-constructor.module.css';
@@ -12,7 +12,6 @@ import { ADD_BUN_TO_CONSTRUCTOR, ADD_INGREDIENT_TO_CONSTRUCTOR, CLEAR_CONSTRUCTO
 import { TBurgerConstructorProps } from '../../utils/prop-types';
 
 export default function BurgerConstructor() {  
-//const BurgerConstructor: FunctionComponent = () => {    
     const [modalActive, setModalActive] = useState<boolean>(false);
 
     const { ingredients, bun, order, isAuth }: any = useSelector<any>(state => ({
@@ -34,7 +33,6 @@ export default function BurgerConstructor() {
         collect: monitor => ({ isHover: monitor.isOver() }),
         drop(item: TBurgerConstructorProps) { moveIngredient(item); }
     });
-
     function handleOpenModal () {
         if (!isAuth) {
             history.push('/login');
@@ -44,13 +42,11 @@ export default function BurgerConstructor() {
         dispatch(postOrder(idsArr));
         setModalActive(true)
     }
-
     function handleCloseModal () {
         dispatch({ type: CLEAR_ORDER })
         dispatch({ type: CLEAR_CONSTRUCTOR })
         setModalActive(false);
     }
-
     const totalPrice = useMemo(() => {
         let price = ingredients.reduce((acc: number, item: TBurgerConstructorProps) => { return item.price + acc; }, 0);
         price += bun && bun.price * 2;
@@ -101,5 +97,3 @@ export default function BurgerConstructor() {
         </>
     );
 }
-
-//export default BurgerConstructor;

@@ -33,12 +33,12 @@ export default function BurgerIngredients() {
     }
     function handleOpenModal (e: SyntheticEvent) {
         const tar = e.currentTarget;
-        const id = tar.getAttribute('_id');
+        const id = tar.getAttribute('id');
         dispatch({ type: SET_INGREDIENT_TO_MODAL, item: ingredients.find((item: TIngredient) => item._id === id) })        
         setModalActive(true);
     }    
-    function handleScroll (e: SyntheticEvent) {
-        const scrollContainer = scrollRef.current;    
+    function handleScroll (e: SyntheticEvent) {           
+        const scrollContainer = scrollRef.current;
         const saucesContainer = saucesRef.current?.getBoundingClientRect();
         const mainsContainer = mainsRef.current?.getBoundingClientRect();
         if (scrollContainer !== null && saucesContainer && mainsContainer) {
@@ -56,7 +56,7 @@ export default function BurgerIngredients() {
             {ingredientsRequest && !ingredientsError && ( <h1>Идет загрузка...</h1> )}
             {ingredientsError && !ingredientsRequest && ( <h1>Произошла ошибка попробуйте позже</h1> )}
             {!ingredientsError && !ingredientsRequest && ingredients.length > 0 && (
-                <div className={style.constructor}>
+                <div className={style.construct}>
                     <h1 className="text text_type_main-large mt-10">Соберите бургер</h1>
                     <div style={{ display: 'flex' }} className='mt-5'>
                         <a className={appStyles.link} href="#bun">
@@ -70,7 +70,7 @@ export default function BurgerIngredients() {
                         </a>
                     </div>
                     <div className="mt-10">
-                        <div className={style.products} onScroll={handleScroll}>
+                        <div className={style.products} onScroll={handleScroll} ref={scrollRef}>
                             <h3 className="text text_type_main-medium" ref={bunsRef} id="bun">Булки</h3>
                             <div className={style.products__cont}>
                                 {ingredients.filter((item: TIngredient) => item.type === 'bun').map((item: TIngredient) => <BurgerIngrediensDetail onOpen={handleOpenModal} {...item} key={item._id} />)}
@@ -94,5 +94,4 @@ export default function BurgerIngredients() {
             }
         </>
     );
-
 }

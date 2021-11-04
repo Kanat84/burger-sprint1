@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import { History, Location } from 'history';
+import { History } from 'history';
 import { checkResponse, getUser, patchUser, sendData } from "../../utils/funcs";
 import { apiURL } from "../../utils/consts";
 

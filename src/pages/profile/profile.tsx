@@ -22,11 +22,11 @@ export default function ProfilePage() {
         setValue({ ...form, email: user.email, name: user.name }) 
     }, [user])  // eslint-disable-line react-hooks/exhaustive-deps
 
-    function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    function handleChange(e: ChangeEvent<HTMLInputElement>): void {
         setValue({ ...form, [e.target.name]: e.target.value })
         setIsInput(true);
     }
-    function handleCancel(e: SyntheticEvent) { 
+    function handleCancel(e: SyntheticEvent): void { 
         e.preventDefault(); 
         setValue({ email: user.email, name: user.name, password: "" })
         setIsInput(false);
@@ -34,21 +34,21 @@ export default function ProfilePage() {
     function handleClick() {
         dispatch(postLogout(history));
     }
-    function handleSubmit(e: FormEvent) {
+    function handleSubmit(e: FormEvent): void {
         e.preventDefault();
         dispatch(postChangeUserInfo(form));
         setIsInput(false);
         setValue({...form, password: ''});
     }
 
-    function handleIconClick(e: MouseEvent, ref: RefObject<any>) {
+    function handleIconClick(e: MouseEvent, ref: RefObject<any>): void {
         e.preventDefault();
         ref.current.removeAttribute('disabled');
         ref.current.classList.remove('input__textfield-disabled')
         ref.current.focus();
     }   
-    function handleBlur(e: FocusEvent, ref: RefObject<any>) {
-        e.preventDefault();
+    function handleBlur(ref: RefObject<any>, e?: FocusEvent): void {
+        e?.preventDefault();
         ref.current.setAttribute('disabled', true);
         ref.current.classList.add('input__textfield-disabled');
     }
@@ -86,7 +86,7 @@ export default function ProfilePage() {
                             error={false}
                             errorText={'Ошибка'}                                
                             size={"default"}                       
-                            //onBlur={e => handleBlur(e, nameRef)}
+                            onBlur={e => handleBlur(nameRef, e)}
                             onIconClick={e => handleIconClick(e, nameRef)}
                             disabled={true}
                             ref={nameRef}     
@@ -114,7 +114,7 @@ export default function ProfilePage() {
                             error={false}
                             errorText={'Ошибка'}
                             size={"default"}
-                            //onBlur={e => handleBlur(e, passRef)}
+                            onBlur={e => handleBlur(passRef, e)}
                             onIconClick={e => handleIconClick(e, passRef)}
                             disabled={true}
                             ref={passRef}

@@ -1,11 +1,9 @@
-import { FunctionComponent } from 'react';
 import { useSelector } from "react-redux";
 import { NavLink, useRouteMatch } from 'react-router-dom';
 import styles from './app-header.module.css';
 import { BurgerIcon, ListIcon, Logo, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
-//export default function AppHeader(): FunctionComponent {
-export const AppHeader: FunctionComponent = () => {
+export default function AppHeader() {
   const { isAuth }: any = useSelector<any>(state => state.usersData);
   const isConstructor = !!useRouteMatch({ path: '/', exact: true});
   const isProfile = !!useRouteMatch('/profile');
@@ -52,5 +50,3 @@ export const AppHeader: FunctionComponent = () => {
       </header>
   );
 }
-
-export default AppHeader;
