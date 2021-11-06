@@ -1,8 +1,9 @@
 import { useSelector } from "react-redux";
 import { Redirect, Route } from 'react-router-dom';
 import { apiURL } from "./consts";
+import { TSetCookieProps, TProtectedRouteProps, TSendDataProps } from './prop-types';
 
-export async function sendData(options) {
+export async function sendData(options: TSendDataProps) {
     return await fetch(options.url, {
         method: options.method,
         headers: options.headers,
@@ -10,14 +11,8 @@ export async function sendData(options) {
     })
 }
 
-export async function getData(url) {
+export async function getData(url: string) {
     return await fetch(url)
-}
-
-export function calculateTotalPrice(items) {
-    return items.reduce((acc, item) => {
-        return item.type === 'bun' ? item.price * 2 + acc : item.price + acc;
-    })
 }
 
 export function refreshToken() {
@@ -32,14 +27,14 @@ export function refreshToken() {
     }).then(checkResponse);
 };
 
-export function getCookie(name) {
+export function getCookie(name: string) {
     // eslint-disable-next-line
     const matches = document.cookie.match(new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)')
     );
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-export function setCookie(name, value, props = {}) {
+export function setCookie(name: string, value: string, props: TSetCookieProps = {}) {
     props = {
         path: '/',
         ...props
@@ -50,14 +45,14 @@ export function setCookie(name, value, props = {}) {
         d.setTime(d.getTime() + exp * 1000);
         exp = props.expires = d;
     }
-    if (exp && exp.toUTCString) {
+    if (exp && exp instanceof Date) {
         props.expires = exp.toUTCString();
     }
     value = encodeURIComponent(value);
     let updatedCookie = name + '=' + value;
     for (const propName in props) {
         updatedCookie += '; ' + propName;
-        const propValue = props[propName];
+        const propValue = (props as { [key: string]: string | boolean })[propName];
         if (propValue !== true) {
             updatedCookie += '=' + propValue;
         }
@@ -65,20 +60,20 @@ export function setCookie(name, value, props = {}) {
     document.cookie = updatedCookie;
 }
 
-export function deleteCookie(name) {
-    setCookie(name, null, {expires: -1});
+export function deleteCookie(name: string) {
+    setCookie(name, '', {expires: -1});
 }
 
-export async function fetchWithRefresh(url, options) {
+export async function fetchWithRefresh(url: string, options: RequestInit = {}) {
     try {
         const res = await fetch(url, options);
         return await checkResponse(res);
-    } catch (err) {
+    } catch (err: any) {
         if (err.message === "jwt expired") {
             const refreshData = await refreshToken(); //обновляем токен
             localStorage.setItem("refreshToken", refreshData.refreshToken);
             setCookie("token", refreshData.accessToken);
-            options.headers.authorization = refreshData.accessToken;
+            (options.headers as { [key: string]: string }).authorization = refreshData.accessToken;
             const res = await fetch(url, options); //повторяем запрос
             return await checkResponse(res);
         } else {
@@ -87,49 +82,57 @@ export async function fetchWithRefresh(url, options) {
     }
 };
 
-export function checkResponse(res) {
+export function checkResponse(res: Response) {
     return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
 export async function getUser() {
+    const accessToken = getCookie('token')
+    if (!accessToken) {
+        return { user: null };
+    }    
     return await fetchWithRefresh(`${apiURL}/auth/user`, {
         method: "GET",
         headers: {
             'Content-Type': 'application/json',
-            'authorization': getCookie('token')
+            'authorization': accessToken
         }
     })
 }
 
-export async function patchUser(formData) {
+export async function patchUser(formData: { email: string; password: string; name: string; }) {
+    const accessToken = getCookie('token')
+    if (!accessToken) {
+        return { user: null };
+    }    
     return await fetchWithRefresh(`${apiURL}/auth/user`, {
         method: "PATCH",
         headers: {
             'Content-Type': 'application/json',
-            'authorization': getCookie('token')
+            'authorization': accessToken
         },
         body: JSON.stringify(formData)
     })
 }
 
-export function ProtectedRoute({ children, exact, path }) {
-    const {isAuth} = useSelector(state => state.usersData);
-     return (
-         <Route
-             exact={exact}
-             path={path}
-             render={({ location }) =>
-                 isAuth ? (
-                     children
-                 ) : (
-                     <Redirect
-                         to={{
-                             pathname: '/login',
-                             state: { from: location }
-                         }}
-                     />
-                 )
-             }
-         />
-     );
+export function ProtectedRoute({ children, exact, path }: TProtectedRouteProps) {
+    const { isAuth }: any = useSelector<any>(state => state.usersData);
+    return (
+        <Route
+            exact={exact}
+            path={path}
+            render={({ location }) =>
+                isAuth ? (
+                    children
+                ) : (
+                    <Redirect
+                        to={{
+                            pathname: '/login',
+                            state: { from: location }
+                        }}
+                    />
+                )
+            }
+        />
+    );
  }

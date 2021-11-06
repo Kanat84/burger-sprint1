@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import style from './ingredient-details.module.css';
 import { getIngredients } from "../../services/actions/burger-ingredients";
+import {TIngredient, TIngredientDetailsProps} from "../../utils/prop-types";
 
 export default function IngredientDetails() {
     const dispatch = useDispatch();
-    const { ingredients, ingredientDetails } = useSelector(state => state.burgerIngredients);
-    const { id } = useParams();
+    const { ingredients, ingredientDetails }: any = useSelector<any>(state => state.burgerIngredients);
+    const { id } = useParams<TIngredientDetailsProps>();
     let ingredient;
     useEffect(() => {
         if (ingredients.length <= 0) {
@@ -15,19 +16,17 @@ export default function IngredientDetails() {
         }
     }, [dispatch, ingredients.length]);
 
-    function isEmptyObj(obj) {
+    function isEmptyObj(obj: {}) {
         for (var key in obj) {
             return false;
         }
         return true;
-    }
-    
+    }    
     if (!isEmptyObj(ingredientDetails)) {
         ingredient = ingredientDetails;
     } else {
-        ingredient = ingredients.find((item) => item._id === id);
+        ingredient = ingredients.find((item: TIngredient) => item._id === id);
     }
-
     return (        
         <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', margin: 'auto'}}>
             {isEmptyObj(ingredientDetails) && (

@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, FormEvent, ChangeEvent, SyntheticEvent, RefObject, FocusEvent, MouseEvent } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import styles from "./profile.module.css";
@@ -6,13 +6,13 @@ import { Button, EmailInput, Input } from "@ya.praktikum/react-developer-burger-
 import { postLogout, getUserInfo, postChangeUserInfo } from "../../services/actions/users";
 
 export default function ProfilePage() {
-    const { user } = useSelector(state => state.usersData);
-    const [isInput, setIsInput] = useState(false);
-    const [form, setValue] = useState({ name: "", email: "", password: "" })
+    const { user }: any = useSelector<any>(state => state.usersData);
+    const [isInput, setIsInput] = useState<boolean>(false);
+    const [form, setValue] = useState<{ name: string, email: string, password: string }>({ name: "", email: "", password: "" })
     const dispatch = useDispatch();
     const history = useHistory();
-    const nameRef = useRef();
-    const passRef = useRef();
+    const nameRef = useRef<HTMLInputElement>(null);
+    const passRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
         dispatch(getUserInfo());
@@ -22,11 +22,11 @@ export default function ProfilePage() {
         setValue({ ...form, email: user.email, name: user.name }) 
     }, [user])  // eslint-disable-line react-hooks/exhaustive-deps
 
-    function handleChange(e) {
+    function handleChange(e: ChangeEvent<HTMLInputElement>): void {
         setValue({ ...form, [e.target.name]: e.target.value })
         setIsInput(true);
     }
-    function handleCancel(e) { 
+    function handleCancel(e: SyntheticEvent): void { 
         e.preventDefault(); 
         setValue({ email: user.email, name: user.name, password: "" })
         setIsInput(false);
@@ -34,21 +34,21 @@ export default function ProfilePage() {
     function handleClick() {
         dispatch(postLogout(history));
     }
-    function handleSubmit(e) {
+    function handleSubmit(e: FormEvent): void {
         e.preventDefault();
         dispatch(postChangeUserInfo(form));
         setIsInput(false);
         setValue({...form, password: ''});
     }
 
-    function handleIconClick(e, ref) {
+    function handleIconClick(e: MouseEvent, ref: RefObject<any>): void {
         e.preventDefault();
         ref.current.removeAttribute('disabled');
         ref.current.classList.remove('input__textfield-disabled')
         ref.current.focus();
     }   
-    function handleBlur(e, ref) {
-        e.preventDefault();
+    function handleBlur(ref: RefObject<any>, e?: FocusEvent): void {
+        e?.preventDefault();
         ref.current.setAttribute('disabled', true);
         ref.current.classList.add('input__textfield-disabled');
     }
@@ -86,7 +86,7 @@ export default function ProfilePage() {
                             error={false}
                             errorText={'Ошибка'}                                
                             size={"default"}                       
-                            onBlur={e => handleBlur(e, nameRef)}
+                            onBlur={e => handleBlur(nameRef, e)}
                             onIconClick={e => handleIconClick(e, nameRef)}
                             disabled={true}
                             ref={nameRef}     
@@ -95,11 +95,11 @@ export default function ProfilePage() {
                     </div>
                     <div className="form__item mb-6">
                         <EmailInput 
-                            type={"email"}
+                            //type={"email"}
                             onChange={handleChange} 
-                            icon={"EditIcon"}
+                            //icon={"EditIcon"}
                             name={'email'} 
-                            errorText={'Ошибка'}                                
+                            //errorText={'Ошибка'}                                
                             size={"default"}
                             value={form.email}
                         />
@@ -114,7 +114,7 @@ export default function ProfilePage() {
                             error={false}
                             errorText={'Ошибка'}
                             size={"default"}
-                            onBlur={e => handleBlur(e, passRef)}
+                            onBlur={e => handleBlur(passRef, e)}
                             onIconClick={e => handleIconClick(e, passRef)}
                             disabled={true}
                             ref={passRef}

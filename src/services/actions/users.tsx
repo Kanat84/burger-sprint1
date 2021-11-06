@@ -1,3 +1,5 @@
+import { Dispatch } from "react";
+import { History } from 'history';
 import { checkResponse, getUser, patchUser, sendData } from "../../utils/funcs";
 import { apiURL } from "../../utils/consts";
 
@@ -11,8 +13,8 @@ export const CHANGE_USER_INFO = 'CHANGE_USER_INFO';
 export const SET_WAS_ON_FORGOT_PAGE = 'SET_WAS_ON_FORGOT_PAGE';
 export const DELETE_WAS_ON_FORGOT_PAGE = 'DELETE_WAS_ON_FORGOT_PAGE';
 
-export function postForgotPassword(emailValue, history) {
-    return function (dispatch) {
+export function postForgotPassword(emailValue: string, history: History) {
+    return function (dispatch: Dispatch<any>) {
         dispatch({ type: GET_USER_REQUEST })
         sendData({
             url: `${apiURL}/password-reset`,
@@ -37,8 +39,8 @@ export function postForgotPassword(emailValue, history) {
     }
 }
 
-export function postResetPassword(form, history) {
-    return function (dispatch) {
+export function postResetPassword(form: { password: string; token: string }, history: History) {
+    return function (dispatch: Dispatch<any>) {
         dispatch({ type: GET_USER_REQUEST })
         sendData({
             url: `${apiURL}/password-reset/reset`,
@@ -67,8 +69,8 @@ export function postResetPassword(form, history) {
     }
 }
 
-export function postRegister (form, history) {
-    return function (dispatch) {
+export function postRegister (form: { email: string; password: string; name: string;}, history: History) {
+    return function (dispatch: Dispatch<any>) {
         dispatch({
             type: GET_USER_REQUEST
         })
@@ -109,8 +111,8 @@ export function postRegister (form, history) {
     }
 }
 
-export function postLogin(form, history, from) {
-    return function (dispatch) {
+export function postLogin(form: Omit<{ email: string; password: string; name: string }, 'name'>, history: History, from: { pathname: string }) {
+    return function (dispatch: Dispatch<any>) {
         dispatch({
             type: GET_USER_REQUEST
         })
@@ -148,8 +150,8 @@ export function postLogin(form, history, from) {
     }
 }
 
-export function postLogout(history) {
-    return function (dispatch) {
+export function postLogout(history: History) {
+    return function (dispatch: Dispatch<any>) {
         dispatch({
             type: GET_USER_REQUEST
         })
@@ -178,7 +180,7 @@ export function postLogout(history) {
 }
 
 export function getUserInfo() {
-    return async function (dispatch) {
+    return async function (dispatch: Dispatch<any>) {
         dispatch({ type: GET_USER_REQUEST })
         await getUser()
             .then(res => {
@@ -196,8 +198,8 @@ export function getUserInfo() {
     }
 }
 
-export function postChangeUserInfo(form) {
-    return async function (dispatch) {
+export function postChangeUserInfo(form: { email: string; password: string; name: string }) {
+    return async function (dispatch: Dispatch<any>) {
         dispatch({ type: GET_USER_REQUEST })
         await patchUser(form)
         .then(res => {

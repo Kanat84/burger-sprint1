@@ -1,3 +1,4 @@
+import { Dispatch } from "react";
 import { apiURL } from "../../utils/consts";
 import { sendData } from "../../utils/funcs";
 
@@ -11,8 +12,8 @@ export const ADD_BUN_TO_CONSTRUCTOR = 'ADD_BUN_TO_CONSTRUCTOR';
 export const MOVE_INGREDIENT_IN_CONSTRUCTOR = 'MOVE_INGREDIENT_IN_CONSTRUCTOR';
 export const CLEAR_CONSTRUCTOR = 'CLEAR_CONSTRUCTOR';
 
-export function postOrder(idsArr) {
-    return function (dispatch) {
+export function postOrder(idsArr: string[]) {
+    return function (dispatch: Dispatch<any>) {
         dispatch({
             type: GET_ORDER_REQUEST
         })

@@ -1,7 +1,17 @@
 import { GET_ORDER_FAILED, GET_ORDER_SUCCESS, GET_ORDER_REQUEST, ADD_INGREDIENT_TO_CONSTRUCTOR, ADD_BUN_TO_CONSTRUCTOR,
     REMOVE_INGREDIENT_FROM_CONSTRUCTOR, MOVE_INGREDIENT_IN_CONSTRUCTOR, CLEAR_ORDER, CLEAR_CONSTRUCTOR } from "../actions/burger-constructor";
+import { TBurgerConstructorProps } from '../../utils/prop-types';
 
-const initialState = {
+type TInintialState = {
+    order: string | null;
+    orderRequest: boolean;
+    orderFailed: boolean;
+    ingredients: TBurgerConstructorProps[];
+    bun: string | null;
+    totalPrice: number;
+}
+
+const initialState: TInintialState = {
     order: null,
     orderRequest: false,
     orderFailed: false,
@@ -10,7 +20,7 @@ const initialState = {
     totalPrice: 0
 }
 
-export function constructorReducer(state = initialState, action) {
+export function constructorReducer(state = initialState, action: any) {
     switch(action.type) {
         case GET_ORDER_FAILED:
             return {

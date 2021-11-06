@@ -1,4 +1,4 @@
-.constructor  {
+.construct  {
     max-width: 600px;
     display: flex;
     flex-direction: column;

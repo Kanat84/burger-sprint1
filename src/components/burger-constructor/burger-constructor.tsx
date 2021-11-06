@@ -9,11 +9,12 @@ import { useDrop } from "react-dnd";
 import { v4 as uuidv4 } from 'uuid';
 import BurgerConstructorItem from "../burger-constructor-item/burger-constructor-item";
 import { ADD_BUN_TO_CONSTRUCTOR, ADD_INGREDIENT_TO_CONSTRUCTOR, CLEAR_CONSTRUCTOR, CLEAR_ORDER, postOrder } from "../../services/actions/burger-constructor";
+import { TBurgerConstructorProps } from '../../utils/prop-types';
 
 export default function BurgerConstructor() {  
-    const [modalActive, setModalActive] = useState(false);
+    const [modalActive, setModalActive] = useState<boolean>(false);
 
-    const { ingredients, bun, order, isAuth } = useSelector(state => ({
+    const { ingredients, bun, order, isAuth }: any = useSelector<any>(state => ({
         ingredients: state.burgerConstructor.ingredients,
         bun: state.burgerConstructor.bun,
         order: state.burgerConstructor.order,
@@ -22,7 +23,7 @@ export default function BurgerConstructor() {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    function moveIngredient (ingredient) {
+    function moveIngredient (ingredient: TBurgerConstructorProps) {
         dispatch({ type: ingredient.type === 'bun' ? ADD_BUN_TO_CONSTRUCTOR : ADD_INGREDIENT_TO_CONSTRUCTOR,
             item: {...ingredient, uuid: uuidv4()}
         })
@@ -30,27 +31,24 @@ export default function BurgerConstructor() {
     const [{ isHover }, dropTarget] = useDrop({
         accept: 'ingredients',
         collect: monitor => ({ isHover: monitor.isOver() }),
-        drop(item) { moveIngredient(item); }
+        drop(item: TBurgerConstructorProps) { moveIngredient(item); }
     });
-
     function handleOpenModal () {
         if (!isAuth) {
             history.push('/login');
         }        
         if (!bun) { return alert('Выберите булочку'); }
-        const idsArr = [...ingredients.map(item => item._id), bun._id, bun._id];
+        const idsArr = [...ingredients.map((item: TBurgerConstructorProps) => item._id), bun._id, bun._id];
         dispatch(postOrder(idsArr));
         setModalActive(true)
     }
-
     function handleCloseModal () {
         dispatch({ type: CLEAR_ORDER })
         dispatch({ type: CLEAR_CONSTRUCTOR })
         setModalActive(false);
     }
-
     const totalPrice = useMemo(() => {
-        let price = ingredients.reduce((acc, item) => { return item.price + acc; }, 0);
+        let price = ingredients.reduce((acc: number, item: TBurgerConstructorProps) => { return item.price + acc; }, 0);
         price += bun && bun.price * 2;
         return price;
     }, [ingredients, bun])
@@ -68,8 +66,8 @@ export default function BurgerConstructor() {
                     </li>
                     <li className={`${style.item} ${isHover ? style.item_isHovering : ''}`}>
                         <ul className={style.list__scroll} style={{display: 'flex', flexDirection: 'column', gap: '10px', alignItems: "flex-end"}}>
-                            {ingredients.map((item, idx) => {
-                                return <BurgerConstructorItem {...item} index={idx} key={item.uuid}/>
+                            {ingredients.map((item :TBurgerConstructorProps, idx: number) => {
+                                return <BurgerConstructorItem {...item} index={idx} key={item.uuid} />
                             })}
                         </ul>
                     </li>                    
@@ -99,4 +97,3 @@ export default function BurgerConstructor() {
         </>
     );
 }
-
