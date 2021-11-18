@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import styles from "./profile.module.css";
 import { Button, EmailInput, Input } from "@ya.praktikum/react-developer-burger-ui-components";
-import { postLogout, getUserInfo, postChangeUserInfo } from "../../services/actions/users";
+import { postLogout, getUserInfo, postChangeUserInfo } from "../../services/funcs";
 import { TUserData, RootState } from "../../services/types";
 
 export default function ProfilePage() {

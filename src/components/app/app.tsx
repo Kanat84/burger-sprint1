@@ -5,7 +5,7 @@ import styles from './app.module.css';
 import AppHeader from '../app-header/app-header';
 import { HomePage, NotFound404, LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage, ProfilePage} from '../../pages';
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import { getIngredients } from "../../services/actions/burger-ingredients";
+import { getIngredients } from "../../services/funcs";
 import { ProtectedRoute } from "../../utils/funcs";
 import { TLocationState } from '../../utils/prop-types';
 

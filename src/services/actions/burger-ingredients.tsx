@@ -1,5 +1,3 @@
-import { apiURL } from "../../utils/consts";
-import { getData } from "../../utils/funcs";
 import {
     GET_INGREDIENTS_REQUEST,
     GET_INGREDIENTS_SUCCESS,
@@ -7,7 +5,6 @@ import {
     SET_INGREDIENT_TO_MODAL,
     REMOVE_INGREDIENT_FROM_MODAL
   } from '../constants';
-import { AppDispatch } from "../types";
 import { TBurgerIngredientProps } from '../../utils/prop-types';
 
 export interface IGetIngredientsRequestsActions {
@@ -49,28 +46,4 @@ export function GetIngredientsFailedActions(): IGetIngredientsFailedActions {
     return ({
         type: GET_INGREDIENTS_FAILED
     });
-}
-
-export function getIngredients() {
-    return function (dispatch: AppDispatch) {
-        dispatch(GetIngredientsRequestsActions())
-        getData(`${apiURL}/ingredients`)
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                throw new Error(`Cannot get data from API. Status code: ${res.status}`);
-            })
-            .then(data => {
-                if (data && data.success) {
-                    dispatch(GetIngredientsSuccessActions(data.data))
-                } else {
-                    dispatch(GetIngredientsFailedActions())
-                }
-            })
-            .catch(err => {
-                console.log(err)
-                dispatch(GetIngredientsFailedActions())
-            })
-    }
 }

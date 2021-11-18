@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory, Redirect, useLocation } from 'react-router-dom';
 import styles from './login.module.css';
 import { Input, Button, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
-import { postLogin } from "../../../services/actions/users";
+import { postLogin } from "../../../services/funcs";
 
 export default function LoginPage() {
     const history = useHistory();

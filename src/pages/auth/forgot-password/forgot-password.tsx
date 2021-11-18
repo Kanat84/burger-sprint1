@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import styles from './forgot-password.module.css';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { postForgotPassword } from "../../../services/actions/users";
+import { postForgotPassword } from "../../../services/funcs";
 import {
     SET_WAS_ON_FORGOT_PAGE
   } from '../../../services/constants';

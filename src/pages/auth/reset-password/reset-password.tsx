@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory, Redirect } from 'react-router-dom';
 import styles from './reset-password.module.css';
 import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { postResetPassword } from "../../../services/actions/users";
+import { postResetPassword } from "../../../services/funcs";
 import {
     DELETE_WAS_ON_FORGOT_PAGE
   } from '../../../services/constants';

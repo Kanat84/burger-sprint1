@@ -1,5 +1,3 @@
-import { apiURL } from "../../utils/consts";
-import { sendData } from "../../utils/funcs";
 import {
     GET_ORDER_REQUEST,
     GET_ORDER_SUCCESS,
@@ -11,7 +9,6 @@ import {
     MOVE_INGREDIENT_IN_CONSTRUCTOR,
     CLEAR_CONSTRUCTOR
   } from '../constants';
-import { AppDispatch } from "../types";
 import { TBurgerConstructorProps } from '../../utils/prop-types';
 
 export interface IGetOrderRequestAction {
@@ -78,42 +75,4 @@ export function ClearOrderAction(): IClearOrderAction {
     return ({
         type: CLEAR_ORDER
     });
-}
-
-export function postOrder(idsArr: string[]) {
-    return function (dispatch: AppDispatch) {
-        dispatch(GetOrderRequestAction())
-        sendData({
-            url: `${apiURL}/orders`,
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: {ingredients: idsArr}
-        })
-            .then((res) => {
-                if (res.ok) {
-                    return res.json();
-                }
-                throw new Error(`Something wrong: ${res.status}`)
-            })
-            .then(res => {
-                    if (res && res.success) {
-                        //console.log(res.order.number);
-                        dispatch(GetOrderSuccessAction(res.order.number) 
-                        /*{
-                            type: GET_ORDER_SUCCESS,
-                            payload: res.order.number
-                        }*/)
-                    } else {
-                        dispatch(GetOrderFailedAction())
-                    }
-                }
-            )
-            .catch(err => {
-                console.log(err)
-                dispatch(GetOrderFailedAction())
-                dispatch(ClearOrderAction())
-            })
-    }
 }

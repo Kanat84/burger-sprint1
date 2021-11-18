@@ -8,7 +8,7 @@ import OrderDetails from "../order-details/order-details";
 import { useDrop } from "react-dnd";
 import { v4 as uuidv4 } from 'uuid';
 import BurgerConstructorItem from "../burger-constructor-item/burger-constructor-item";
-import { postOrder } from "../../services/actions/burger-constructor";
+import { postOrder } from "../../services/funcs";
 import { TBurgerConstructorProps } from '../../utils/prop-types';
 import {
     ADD_BUN_TO_CONSTRUCTOR,

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import styles from './register.module.css';
 import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { postRegister } from "../../../services/actions/users";
+import { postRegister } from "../../../services/funcs";
 
 export default function RegisterPage() {
     const history = useHistory();
