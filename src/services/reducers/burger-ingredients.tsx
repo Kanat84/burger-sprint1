@@ -10,8 +10,8 @@ import { TIngredientsActions } from '../actions/burger-ingredients';
 
 type TInitialState = {
     ingredients: TBurgerIngredientProps[];
-    ingredientsRequest: false;
-    ingredientsFailed: false;
+    ingredientsRequest: boolean;
+    ingredientsFailed: boolean;
     ingredientDetails: TBurgerIngredientProps | {}
 }
 
@@ -22,7 +22,7 @@ const initialState: TInitialState = {
     ingredientDetails: {}
 };
 
-export function burgerIngredientsReducer(state = initialState, action: TIngredientsActions) {
+export function burgerIngredientsReducer(state = initialState, action: TIngredientsActions): TInitialState {
     switch (action.type) {
         case GET_INGREDIENTS_REQUEST: {
             return { ...state, ingredientsRequest: true };

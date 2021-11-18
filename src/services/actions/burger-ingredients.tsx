@@ -15,7 +15,7 @@ export interface IGetIngredientsRequestsActions {
 }
 export interface IGetIngredientsSuccessActions {
     readonly type: typeof GET_INGREDIENTS_SUCCESS,
-    readonly ingredients: object
+    readonly ingredients: TBurgerIngredientProps[]
 }
 export interface IGetIngredientsFailedActions {
     readonly type: typeof GET_INGREDIENTS_FAILED;
@@ -39,7 +39,7 @@ export function GetIngredientsRequestsActions(): IGetIngredientsRequestsActions 
         type: GET_INGREDIENTS_REQUEST
     });
 }
-export function GetIngredientsSuccessActions(ingredients: object): IGetIngredientsSuccessActions {
+export function GetIngredientsSuccessActions(ingredients: TBurgerIngredientProps[]): IGetIngredientsSuccessActions {
     return ({
         type: GET_INGREDIENTS_SUCCESS,
         ingredients
