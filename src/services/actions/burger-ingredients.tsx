@@ -1,16 +1,59 @@
-import { Dispatch } from "react";
 import { apiURL } from "../../utils/consts";
 import { getData } from "../../utils/funcs";
+import {
+    GET_INGREDIENTS_REQUEST,
+    GET_INGREDIENTS_SUCCESS,
+    GET_INGREDIENTS_FAILED,
+    SET_INGREDIENT_TO_MODAL,
+    REMOVE_INGREDIENT_FROM_MODAL
+  } from '../constants';
+import { AppDispatch } from "../types";
+import { TBurgerIngredientProps } from '../../utils/prop-types';
 
-export const GET_INGREDIENTS_REQUEST = 'GET_ITEMS_REQUEST';
-export const GET_INGREDIENTS_SUCCESS = 'GET_ITEMS_SUCCESS';
-export const GET_INGREDIENTS_FAILED = 'GET_ITEMS_FAILED';
-export const SET_INGREDIENT_TO_MODAL = 'SET_INGREDIENT_TO_MODAL';
-export const REMOVE_INGREDIENT_FROM_MODAL = 'REMOVE_INGREDIENT_FROM_MODAL';
+export interface IGetIngredientsRequestsActions {
+    readonly type: typeof GET_INGREDIENTS_REQUEST;
+}
+export interface IGetIngredientsSuccessActions {
+    readonly type: typeof GET_INGREDIENTS_SUCCESS,
+    readonly ingredients: object
+}
+export interface IGetIngredientsFailedActions {
+    readonly type: typeof GET_INGREDIENTS_FAILED;
+}
+export interface ISetIngredientToModalActions {
+    readonly type: typeof SET_INGREDIENT_TO_MODAL;
+    readonly item: TBurgerIngredientProps;
+}
+export interface IRemoveIngredientFromModalActions {
+    readonly type: typeof REMOVE_INGREDIENT_FROM_MODAL;
+}
+export type TIngredientsActions =
+    IGetIngredientsRequestsActions |
+    IGetIngredientsSuccessActions |
+    IGetIngredientsFailedActions |
+    ISetIngredientToModalActions |
+    IRemoveIngredientFromModalActions;
+
+export function GetIngredientsRequestsActions(): IGetIngredientsRequestsActions {
+    return ({
+        type: GET_INGREDIENTS_REQUEST
+    });
+}
+export function GetIngredientsSuccessActions(ingredients: object): IGetIngredientsSuccessActions {
+    return ({
+        type: GET_INGREDIENTS_SUCCESS,
+        ingredients
+    });
+}
+export function GetIngredientsFailedActions(): IGetIngredientsFailedActions {
+    return ({
+        type: GET_INGREDIENTS_FAILED
+    });
+}
 
 export function getIngredients() {
-    return function (dispatch: Dispatch<any>) {
-        dispatch({ type: GET_INGREDIENTS_REQUEST })
+    return function (dispatch: AppDispatch) {
+        dispatch(GetIngredientsRequestsActions())
         getData(`${apiURL}/ingredients`)
             .then(res => {
                 if (res.ok) {
@@ -20,17 +63,14 @@ export function getIngredients() {
             })
             .then(data => {
                 if (data && data.success) {
-                    dispatch({
-                        type: GET_INGREDIENTS_SUCCESS,
-                        ingredients: data.data,
-                    })
+                    dispatch(GetIngredientsSuccessActions(data.data))
                 } else {
-                    dispatch({type: GET_INGREDIENTS_FAILED})
+                    dispatch(GetIngredientsFailedActions())
                 }
             })
             .catch(err => {
                 console.log(err)
-                dispatch({type: GET_INGREDIENTS_FAILED})
+                dispatch(GetIngredientsFailedActions())
             })
     }
 }

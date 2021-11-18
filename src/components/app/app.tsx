@@ -1,8 +1,11 @@
+import { useEffect } from 'react';
+import { useDispatch } from "react-redux";
 import { Switch, Route, useLocation, useHistory } from 'react-router-dom';
 import styles from './app.module.css';
 import AppHeader from '../app-header/app-header';
 import { HomePage, NotFound404, LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage, ProfilePage} from '../../pages';
 import IngredientDetails from "../ingredient-details/ingredient-details";
+import { getIngredients } from "../../services/actions/burger-ingredients";
 import { ProtectedRoute } from "../../utils/funcs";
 import { TLocationState } from '../../utils/prop-types';
 
@@ -10,7 +13,10 @@ export default function App() {
     const location = useLocation<TLocationState>();
     const history = useHistory();
     const background = (history.action === 'PUSH' || history.action === 'REPLACE') && location.state && location.state.background;
-
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getIngredients());
+    }, [dispatch]);
     return (
         <div>
             <AppHeader />

@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import styles from './forgot-password.module.css';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { postForgotPassword, SET_WAS_ON_FORGOT_PAGE } from "../../../services/actions/users";
+import { postForgotPassword } from "../../../services/actions/users";
+import {
+    SET_WAS_ON_FORGOT_PAGE
+  } from '../../../services/constants';
 
 export default function ForgotPasswordPage() {
     const [value, setValue] = useState<string>('')

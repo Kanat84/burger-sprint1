@@ -4,11 +4,12 @@ import { NavLink, useHistory } from "react-router-dom";
 import styles from "./profile.module.css";
 import { Button, EmailInput, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { postLogout, getUserInfo, postChangeUserInfo } from "../../services/actions/users";
+import { TUserData, RootState } from "../../services/types";
 
 export default function ProfilePage() {
-    const { user }: any = useSelector<any>(state => state.usersData);
+    const { user } = useSelector((state: RootState) => state.usersData);
     const [isInput, setIsInput] = useState<boolean>(false);
-    const [form, setValue] = useState<{ name: string, email: string, password: string }>({ name: "", email: "", password: "" })
+    const [form, setValue] = useState<TUserData>({ name: "", email: "", password: "" })
     const dispatch = useDispatch();
     const history = useHistory();
     const nameRef = useRef<HTMLInputElement>(null);

@@ -1,4 +1,4 @@
-import { createRef, useState, useEffect, SyntheticEvent } from 'react';
+import { createRef, useState, SyntheticEvent } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import style from './burger-ingredients.module.css';
@@ -7,10 +7,13 @@ import BurgerIngrediensDetail from "../burger-ingredients-detail/burger-ingredie
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import { REMOVE_INGREDIENT_FROM_MODAL, SET_INGREDIENT_TO_MODAL, getIngredients } from "../../services/actions/burger-ingredients";
-import { TIngredient } from '../../utils/prop-types';
+import { TBurgerIngredientProps } from '../../utils/prop-types';
+import {
+    REMOVE_INGREDIENT_FROM_MODAL,
+    SET_INGREDIENT_TO_MODAL
+  } from '../../services/constants';
 
-export default function BurgerIngredients() { 
+export default function BurgerIngredients(): JSX.Element { 
     const [current, setCurrent] = useState<string>('bun');
     const [modalActive, setModalActive] = useState<boolean>(false);
     const { ingredients, ingredientsRequest, ingredientsError, ingredientDetails }: any = useSelector<any>(state => state.burgerIngredients) 
@@ -21,7 +24,6 @@ export default function BurgerIngredients() {
     const dispatch = useDispatch();
     const history = useHistory();
     const location = useLocation();
-    useEffect(() => { dispatch(getIngredients()) }, [dispatch]);
 
     function handleCloseModal () {
         setModalActive(false);
@@ -34,7 +36,7 @@ export default function BurgerIngredients() {
     function handleOpenModal (e: SyntheticEvent) {
         const tar = e.currentTarget;
         const id = tar.getAttribute('id');
-        dispatch({ type: SET_INGREDIENT_TO_MODAL, item: ingredients.find((item: TIngredient) => item._id === id) })        
+        dispatch({ type: SET_INGREDIENT_TO_MODAL, item: ingredients.find((item: TBurgerIngredientProps) => item._id === id) })        
         setModalActive(true);
     }    
     function handleScroll (e: SyntheticEvent) {           
@@ -73,15 +75,15 @@ export default function BurgerIngredients() {
                         <div className={style.products} onScroll={handleScroll} ref={scrollRef}>
                             <h3 className="text text_type_main-medium" ref={bunsRef} id="bun">Булки</h3>
                             <div className={style.products__cont}>
-                                {ingredients.filter((item: TIngredient) => item.type === 'bun').map((item: TIngredient) => <BurgerIngrediensDetail onOpen={handleOpenModal} {...item} key={item._id} />)}
+                                {ingredients.filter((item: TBurgerIngredientProps) => item.type === 'bun').map((item: TBurgerIngredientProps) => <BurgerIngrediensDetail onOpen={handleOpenModal} {...item} key={item._id} />)}
                             </div>
                             <h3 className="text text_type_main-medium" ref={saucesRef} id="sauce">Соусы</h3>
                             <div className={style.products__cont}>
-                                {ingredients.filter((item: TIngredient) => item.type === 'sauce').map((item: TIngredient) => <BurgerIngrediensDetail onOpen={handleOpenModal} {...item} key={item._id} />)}
+                                {ingredients.filter((item: TBurgerIngredientProps) => item.type === 'sauce').map((item: TBurgerIngredientProps) => <BurgerIngrediensDetail onOpen={handleOpenModal} {...item} key={item._id} />)}
                             </div>
                             <h3 className="text text_type_main-medium" ref={mainsRef} id="main">Начинки</h3>
                             <div className={style.products__cont}>
-                                {ingredients.filter((item: TIngredient) => item.type === 'main').map((item: TIngredient) => <BurgerIngrediensDetail onOpen={handleOpenModal} {...item} key={item._id} />)}
+                                {ingredients.filter((item: TBurgerIngredientProps) => item.type === 'main').map((item: TBurgerIngredientProps) => <BurgerIngrediensDetail onOpen={handleOpenModal} {...item} key={item._id} />)}
                             </div>
                         </div>
                     </div>

@@ -1,3 +1,4 @@
+import { setCookie, deleteCookie, getCookie } from "../../utils/funcs";
 import {
     GET_USER_FAILED,
     GET_USER_INFO,
@@ -5,9 +6,11 @@ import {
     GET_USER_SUCCESS,
     SET_IS_AUTH,
     DELETE_IS_AUTH,
-    SET_WAS_ON_FORGOT_PAGE, DELETE_WAS_ON_FORGOT_PAGE, CHANGE_USER_INFO
-} from "../actions/users";
-import {setCookie, deleteCookie, getCookie} from "../../utils/funcs";
+    SET_WAS_ON_FORGOT_PAGE, 
+    DELETE_WAS_ON_FORGOT_PAGE, 
+    CHANGE_USER_INFO
+} from "../constants";
+import { TUsersActions } from '../actions/users';
 
 type TInitialState = {
     authRequest: boolean;
@@ -31,22 +34,22 @@ const initialState: TInitialState = {
     wasOnForgotPass: false
 }
 
-export function usersReducer(state = initialState, action: any) {
+export function usersReducer(state = initialState, action: TUsersActions): TInitialState {
     switch (action.type) {
-        case GET_USER_FAILED:
-            return {
-                ...state,
-                authFailed: true
-            }
         case GET_USER_REQUEST:
             return {
                 ...state,
                 authRequest: true
             }
+        case GET_USER_FAILED:
+            return {
+                ...state,
+                authFailed: true
+            }
         case GET_USER_SUCCESS:
             return {
                 ...state,
-                user: action.payload.user,
+                user: action.user,
                 authRequest: false,
                 authFailed: false,
                 isAuth: true
@@ -54,7 +57,7 @@ export function usersReducer(state = initialState, action: any) {
         case GET_USER_INFO:
             return {
                 ...state,
-                user: action.payload.user
+                user: action.user
             }
         case SET_IS_AUTH:
             setCookie('token', action.payload.accessToken);

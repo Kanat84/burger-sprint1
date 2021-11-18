@@ -8,8 +8,14 @@ import OrderDetails from "../order-details/order-details";
 import { useDrop } from "react-dnd";
 import { v4 as uuidv4 } from 'uuid';
 import BurgerConstructorItem from "../burger-constructor-item/burger-constructor-item";
-import { ADD_BUN_TO_CONSTRUCTOR, ADD_INGREDIENT_TO_CONSTRUCTOR, CLEAR_CONSTRUCTOR, CLEAR_ORDER, postOrder } from "../../services/actions/burger-constructor";
+import { postOrder } from "../../services/actions/burger-constructor";
 import { TBurgerConstructorProps } from '../../utils/prop-types';
+import {
+    ADD_BUN_TO_CONSTRUCTOR,
+    ADD_INGREDIENT_TO_CONSTRUCTOR,
+    CLEAR_CONSTRUCTOR,
+    CLEAR_ORDER
+  } from '../../services/constants';
 
 export default function BurgerConstructor() {  
     const [modalActive, setModalActive] = useState<boolean>(false);

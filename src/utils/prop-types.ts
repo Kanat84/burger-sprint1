@@ -1,7 +1,7 @@
 import { SyntheticEvent } from 'react';
 import { Location } from 'history';
 
-export type TIngredient = {
+export type TBurgerIngredientProps = {
     _id: string,
     name: string,
     type: string,
@@ -62,12 +62,12 @@ export type TProtectedRouteProps = {
     children?: React.ReactNode;
 }
 
-export type TBurgerConstructorProps = TIngredient & {
+export type TBurgerConstructorProps = TBurgerIngredientProps & {
     onOpen: () => {},
     uuid: string;
 }
 
-export type TBurgerConstructorIngredientProps = TIngredient & {
+export type TBurgerConstructorIngredientProps = TBurgerIngredientProps & {
     uuid: string;
 }
 
