@@ -1,14 +1,14 @@
 import { useState, useMemo } from 'react';
-import { useDispatch, useSelector } from "react-redux";
+//import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import style from './burger-constructor.module.css';
 import { Button, CurrencyIcon, ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
-import Modal from "../modal/modal";
-import OrderDetails from "../order-details/order-details";
+//import Modal from "../modal/modal";
+//import OrderDetails from "../order-details/order-details";
 import { useDrop } from "react-dnd";
 import { v4 as uuidv4 } from 'uuid';
 import BurgerConstructorItem from "../burger-constructor-item/burger-constructor-item";
-import { postOrder } from "../../services/funcs";
+//import { postOrder } from "../../services/funcs";
 import { TBurgerConstructorProps } from '../../utils/prop-types';
 import {
     ADD_BUN_TO_CONSTRUCTOR,
@@ -16,14 +16,17 @@ import {
     CLEAR_CONSTRUCTOR,
     CLEAR_ORDER
   } from '../../services/constants';
+import { AddBunToConstructorAction,  AddIngredientToConstructorAction, ClearConstructorAction } from '../../services/actions/burger-constructor'  
+import { ClearOrderAction } from '../../services/actions/orders'  
+import { RootState, useDispatch, useSelector } from '../../services/types';
 
 export default function BurgerConstructor() {  
     const [modalActive, setModalActive] = useState<boolean>(false);
 
-    const { ingredients, bun, order, isAuth }: any = useSelector<any>(state => ({
+    const { ingredients, bun, orderNumber, isAuth } = useSelector((state: RootState) => ({
         ingredients: state.burgerConstructor.ingredients,
         bun: state.burgerConstructor.bun,
-        order: state.burgerConstructor.order,
+        orderNumber: state.ordersData.orderNumber,
         isAuth: state.usersData.isAuth      
     }));
     const dispatch = useDispatch();
@@ -45,17 +48,17 @@ export default function BurgerConstructor() {
         }        
         if (!bun) { return alert('Выберите булочку'); }
         const idsArr = [...ingredients.map((item: TBurgerConstructorProps) => item._id), bun._id, bun._id];
-        dispatch(postOrder(idsArr));
+       // dispatch(postOrder(idsArr));
         setModalActive(true)
     }
     function handleCloseModal () {
-        dispatch({ type: CLEAR_ORDER })
-        dispatch({ type: CLEAR_CONSTRUCTOR })
+        dispatch(ClearOrderAction)
+        dispatch(ClearConstructorAction())
         setModalActive(false);
     }
     const totalPrice = useMemo(() => {
         let price = ingredients.reduce((acc: number, item: TBurgerConstructorProps) => { return item.price + acc; }, 0);
-        price += bun && bun.price * 2;
+        bun && (price += bun.price * 2);
         return price;
     }, [ingredients, bun])
 
@@ -95,11 +98,11 @@ export default function BurgerConstructor() {
                     </div>
                 )}
             </div>
-            {modalActive && order && (
+           {/*} {modalActive && order && (
                 <Modal onClose={handleCloseModal}>
                     <OrderDetails id={order} />
                 </Modal>
-            )}
+           )}*/}
         </>
     );
 }

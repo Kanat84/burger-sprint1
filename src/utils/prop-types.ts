@@ -32,7 +32,6 @@ export type TIngredientDetailsProps = {
 
 export type TModalProps = {
     title?: string,
-    onClose: () => void,
     children?: React.ReactNode;
 }
 
@@ -74,7 +73,7 @@ export type TBurgerConstructorIngredientProps = TBurgerIngredientProps & {
 export type TSendDataProps = {
     url: string,
     method: string;
-    headers: { "Content-Type": string }
+    headers: { "Content-Type": string; authorization?: string }
     body?: {
         ingredients?: Array<string>;
         email?: string;

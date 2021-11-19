@@ -1,9 +1,10 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
-import { useDispatch, useSelector } from "react-redux";
+//import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory, Redirect, useLocation } from 'react-router-dom';
 import styles from './login.module.css';
 import { Input, Button, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
 import { postLogin } from "../../../services/funcs";
+import { RootState, useDispatch, useSelector } from '../../../services/types';
 
 export default function LoginPage() {
     const history = useHistory();
@@ -11,7 +12,7 @@ export default function LoginPage() {
     const dispatch = useDispatch();
 
     const [form, setValue] = useState<{ email: string; password: string }>({ email: '', password: '' });
-    const { isAuth }: any = useSelector<any>(state => state.usersData);
+    const { isAuth } = useSelector((state: RootState) => state.usersData);
     let { from } = location.state || {from: {pathname: '/'}}
 
     function handleChange(e: ChangeEvent<HTMLInputElement>) {

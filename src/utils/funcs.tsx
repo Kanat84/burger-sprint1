@@ -1,7 +1,8 @@
-import { useSelector } from "react-redux";
+//import { useSelector } from "react-redux";
 import { Redirect, Route } from 'react-router-dom';
-import { apiURL } from "./consts";
+import { apiURL } from "./constants";
 import { TSetCookieProps, TProtectedRouteProps, TSendDataProps } from './prop-types';
+import { TUserData, RootState, useSelector } from '../services/types';
 
 export async function sendData(options: TSendDataProps) {
     return await fetch(options.url, {
@@ -70,11 +71,11 @@ export async function fetchWithRefresh(url: string, options: RequestInit = {}) {
         return await checkResponse(res);
     } catch (err: any) {
         if (err.message === "jwt expired") {
-            const refreshData = await refreshToken(); //обновляем токен
+            const refreshData = await refreshToken();
             localStorage.setItem("refreshToken", refreshData.refreshToken);
             setCookie("token", refreshData.accessToken);
             (options.headers as { [key: string]: string }).authorization = refreshData.accessToken;
-            const res = await fetch(url, options); //повторяем запрос
+            const res = await fetch(url, options);
             return await checkResponse(res);
         } else {
             return Promise.reject(err);
@@ -100,7 +101,7 @@ export async function getUser() {
     })
 }
 
-export async function patchUser(formData: { email: string; password: string; name: string; }) {
+export async function patchUser(form: TUserData) {
     const accessToken = getCookie('token')
     if (!accessToken) {
         return { user: null };
@@ -111,12 +112,12 @@ export async function patchUser(formData: { email: string; password: string; nam
             'Content-Type': 'application/json',
             'authorization': accessToken
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(form)
     })
 }
 
 export function ProtectedRoute({ children, exact, path }: TProtectedRouteProps) {
-    const { isAuth }: any = useSelector<any>(state => state.usersData);
+    const { isAuth } = useSelector((state: RootState) => state.usersData);
     return (
         <Route
             exact={exact}

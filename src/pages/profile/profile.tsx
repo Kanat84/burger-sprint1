@@ -1,10 +1,10 @@
 import { useEffect, useState, useRef, FormEvent, ChangeEvent, SyntheticEvent, RefObject, FocusEvent, MouseEvent } from "react";
-import { useSelector, useDispatch } from "react-redux";
+//import { useSelector, useDispatch } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import styles from "./profile.module.css";
 import { Button, EmailInput, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { postLogout, getUserInfo, postChangeUserInfo } from "../../services/funcs";
-import { TUserData, RootState } from "../../services/types";
+import { TUserData, RootState, useDispatch, useSelector } from '../../services/types';
 
 export default function ProfilePage() {
     const { user } = useSelector((state: RootState) => state.usersData);

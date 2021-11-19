@@ -1,22 +1,23 @@
 import { createRef, useState, SyntheticEvent } from 'react';
-import { useDispatch, useSelector } from "react-redux";
+//import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import style from './burger-ingredients.module.css';
 import appStyles from '../app/app.module.css';
 import BurgerIngrediensDetail from "../burger-ingredients-detail/burger-ingredients-detail";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import Modal from "../modal/modal";
-import IngredientDetails from "../ingredient-details/ingredient-details";
+//import Modal from "../modal/modal";
+//import IngredientDetails from "../ingredient-details/ingredient-details";
 import { TBurgerIngredientProps } from '../../utils/prop-types';
 import {
-    REMOVE_INGREDIENT_FROM_MODAL,
+   // REMOVE_INGREDIENT_FROM_MODAL,
     SET_INGREDIENT_TO_MODAL
   } from '../../services/constants';
+import { RootState, useDispatch, useSelector } from '../../services/types';
 
 export default function BurgerIngredients(): JSX.Element { 
     const [current, setCurrent] = useState<string>('bun');
     const [modalActive, setModalActive] = useState<boolean>(false);
-    const { ingredients, ingredientsRequest, ingredientsError, ingredientDetails }: any = useSelector<any>(state => state.burgerIngredients) 
+    const { ingredients, ingredientsRequest, ingredientsError, ingredientDetails }: any = useSelector((state:RootState)=> state.burgerIngredients) 
     const bunsRef = createRef<HTMLDivElement>();
     const saucesRef = createRef<HTMLDivElement>();
     const mainsRef  = createRef<HTMLDivElement>(); 
@@ -25,11 +26,11 @@ export default function BurgerIngredients(): JSX.Element {
     const history = useHistory();
     const location = useLocation();
 
-    function handleCloseModal () {
+  /*  function handleCloseModal () {
         setModalActive(false);
         dispatch({ type: REMOVE_INGREDIENT_FROM_MODAL })
         history.replace(location);
-    }
+    }*/
     function handleTabClick (value: string) { 
         setCurrent(value); 
     }
@@ -89,11 +90,11 @@ export default function BurgerIngredients(): JSX.Element {
                     </div>
                 </div>
             )}
-            {modalActive && ingredientDetails && (
+          {/*  {modalActive && ingredientDetails && (
                 <Modal onClose={handleCloseModal} title={'Детали ингредиента'}>
                     <IngredientDetails {...ingredientDetails} />
                 </Modal>)
-            }
+            }*/}
         </>
     );
 }

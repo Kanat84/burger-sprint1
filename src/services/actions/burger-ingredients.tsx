@@ -47,3 +47,9 @@ export function GetIngredientsFailedActions(): IGetIngredientsFailedActions {
         type: GET_INGREDIENTS_FAILED
     });
 }
+
+export function RemoveIngredientFromModalActions(): IRemoveIngredientFromModalActions {
+    return ({
+        type: REMOVE_INGREDIENT_FROM_MODAL
+    });
+}

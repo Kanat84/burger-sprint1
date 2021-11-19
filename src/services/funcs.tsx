@@ -1,13 +1,15 @@
 import { History } from 'history';
-import { checkResponse, getUser, patchUser, getData, sendData } from "../utils/funcs";
-import { apiURL } from "../utils/consts";
-import { TUserData, TPasswordData, AppDispatch } from "./types";
+import { checkResponse, getUser, patchUser, getData, sendData, getCookie } from "../utils/funcs";
+import { apiURL } from "../utils/constants";
+import { TUserData, TPasswordData, AppDispatch, AppThunk } from "./types";
 import { 
     GetUserRequestAction, GetUserFailedAction, GetUserSuccessAction, SetIsAuthAction, 
     DeleteIsAuthAction, GetUserInfoAction, ChangeUserInfoAction
 } from "./actions/users"
-import { GetOrderRequestAction, GetOrderFailedAction, GetOrderSuccessAction, ClearOrderAction } from "./actions/burger-constructor"
+import { GetOrderRequestAction, GetOrderFailedAction, GetOrderSuccessAction, ClearOrderAction, 
+    GetOrderNumberRequestsAction, GetOrderNumberSuccessAction, GetOrderNumberFailedAction, ClearOrderNumberAction } from "./actions/orders"
 import { GetIngredientsRequestsActions, GetIngredientsSuccessActions, GetIngredientsFailedActions } from "./actions/burger-ingredients"
+import { GET_ORDER_NUMBER_SUCCESS } from "./constants"
 
 export function postForgotPassword(emailValue: string, history: History) {
     return function (dispatch: AppDispatch) {
@@ -190,43 +192,40 @@ export function postChangeUserInfo(form: TUserData) {
     }
 }
 
-export function postOrder(idsArr: string[]) {
+/*export function postOrder(idsArr: string[]) {
+    const accessToken = getCookie('token')
     return function (dispatch: AppDispatch) {
-        dispatch(GetOrderRequestAction())
+        dispatch(GetOrderNumberRequestsAction())
         sendData({
             url: `${apiURL}/orders`,
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'authorization': accessToken
             },
             body: {ingredients: idsArr}
         })
-            .then((res) => {
-                if (res.ok) {
-                    return res.json();
+        .then((res) => {
+            if (res.ok) {
+                return res.json();
+            }
+            throw new Error(`Произошла непредвиденная ошибка: ${res.status}`)
+        })
+        .then(res => {
+                if (res && res.success) {
+                    dispatch(GetOrderNumberSuccessAction(res.order.number))
+                } else {
+                    dispatch(GetOrderNumberFailedAction)
                 }
-                throw new Error(`Something wrong: ${res.status}`)
-            })
-            .then(res => {
-                    if (res && res.success) {
-                        //console.log(res.order.number);
-                        dispatch(GetOrderSuccessAction(res.order.number) 
-                        /*{
-                            type: GET_ORDER_SUCCESS,
-                            payload: res.order.number
-                        }*/)
-                    } else {
-                        dispatch(GetOrderFailedAction())
-                    }
-                }
-            )
-            .catch(err => {
-                console.log(err)
-                dispatch(GetOrderFailedAction())
-                dispatch(ClearOrderAction())
-            })
+            }
+        )
+        .catch(err => {
+            console.log(err)
+            dispatch(GetOrderNumberFailedAction())
+            dispatch(ClearOrderNumberAction())
+        })
     }
-}
+}*/
 
 export function getIngredients() {
     return function (dispatch: AppDispatch) {

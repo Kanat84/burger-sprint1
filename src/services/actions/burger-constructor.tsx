@@ -1,8 +1,4 @@
 import {
-    GET_ORDER_REQUEST,
-    GET_ORDER_SUCCESS,
-    GET_ORDER_FAILED,
-    CLEAR_ORDER,
     ADD_INGREDIENT_TO_CONSTRUCTOR,
     REMOVE_INGREDIENT_FROM_CONSTRUCTOR,
     ADD_BUN_TO_CONSTRUCTOR,
@@ -11,19 +7,6 @@ import {
   } from '../constants';
 import { TBurgerConstructorProps } from '../../utils/prop-types';
 
-export interface IGetOrderRequestAction {
-    readonly type: typeof GET_ORDER_REQUEST;
-}
-export interface IGetOrderSuccessAction {
-    readonly type: typeof GET_ORDER_SUCCESS;
-    readonly order: string; 
-}
-export interface IGetOrderFailedAction {
-    readonly type: typeof GET_ORDER_FAILED;
-}
-export interface IClearOrderAction {
-    readonly type: typeof CLEAR_ORDER;
-}
 export interface IAddIngredientToConstructorAction {
     readonly type: typeof ADD_INGREDIENT_TO_CONSTRUCTOR;
     readonly item: TBurgerConstructorProps;
@@ -45,34 +28,39 @@ export interface IClearConstructorAction {
     readonly type: typeof CLEAR_CONSTRUCTOR;
 }
 export type TConstructorActions =
-    IGetOrderRequestAction |
-    IGetOrderSuccessAction |
-    IGetOrderFailedAction |
-    IClearOrderAction |
     IAddIngredientToConstructorAction |
     IRemoveIngredientFromConstructorAction |
     IAddBunToConstructorAction |
     IMoveIngredientInConstructorAction |
     IClearConstructorAction;
 
-export function GetOrderRequestAction(): IGetOrderRequestAction {
+export function AddBunToConstructorAction(item: TBurgerConstructorProps): IAddBunToConstructorAction {
     return ({
-        type: GET_ORDER_REQUEST
+        type: ADD_BUN_TO_CONSTRUCTOR,
+        item
     });
 }
-export function GetOrderSuccessAction(order: string): IGetOrderSuccessAction {
+export function AddIngredientToConstructorAction(item: TBurgerConstructorProps): IAddIngredientToConstructorAction {
     return ({
-        type: GET_ORDER_SUCCESS,
-        order
+        type: ADD_INGREDIENT_TO_CONSTRUCTOR,
+        item
     });
 }
-export function GetOrderFailedAction(): IGetOrderFailedAction {
+export function MoveIngredientInConstructorAction(dragIndex: number, hoverIndex: number): IMoveIngredientInConstructorAction {
     return ({
-        type: GET_ORDER_FAILED
+        type: MOVE_INGREDIENT_IN_CONSTRUCTOR,
+        dragIndex, 
+        hoverIndex
     });
 }
-export function ClearOrderAction(): IClearOrderAction {
+export function RemoveIngredientFromConstructorAction(id: string): IRemoveIngredientFromConstructorAction {
     return ({
-        type: CLEAR_ORDER
+        type: REMOVE_INGREDIENT_FROM_CONSTRUCTOR,
+        id
+    });
+}
+export function ClearConstructorAction(): IClearConstructorAction {
+    return ({
+        type: CLEAR_CONSTRUCTOR
     });
 }
