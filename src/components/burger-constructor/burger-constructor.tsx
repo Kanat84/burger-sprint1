@@ -42,7 +42,7 @@ export default function BurgerConstructor() {
         const idsArr = [...ingredients.map((item) => item._id), bun._id, bun._id];
         dispatch(postOrder(idsArr));
         history.push({
-            pathname: "/sendOrder",
+            pathname: "/sendorder",
             state: {
                 background: location,
             },

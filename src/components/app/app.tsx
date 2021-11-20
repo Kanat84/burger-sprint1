@@ -31,10 +31,9 @@ export default function App() {
                             <Route exact path="/login" component={ LoginPage } />          
                             <Route exact path="/register" component={ RegisterPage } /> 
                             <Route exact path="/forgot-password" component={ ForgotPasswordPage } /> 
-                            <Route exact path="/reset-password" component={ ResetPasswordPage } />                     
-                            <ProtectedRoute exact path="/profile"><ProfilePage /></ProtectedRoute>
-                            <ProtectedRoute exact path="/profile/orders"><ProfilePage /></ProtectedRoute>
-                            <ProtectedRoute exact path="/profile/orders/:id"><FeedDetails /></ProtectedRoute>
+                            <Route exact path="/reset-password" component={ ResetPasswordPage } />    
+                            <ProtectedRoute exact path="/profile/orders/:id"><FeedDetails /></ProtectedRoute>                                             
+                            <ProtectedRoute path="/profile"><ProfilePage /></ProtectedRoute>
                             <Route exact path="/ingredients/:id" component={ IngredientDetails } />
                             <Route exact path="/feed" component={ FeedPage } />         
                             <Route exact path="/feed/:id" component={ FeedDetails } />                     
@@ -46,7 +45,7 @@ export default function App() {
                                 <Route path={"/ingredients/:id"} children={
                                     <Modal><IngredientDetails/></Modal>
                                 } />                                
-                                <Route path={"/sendOrder"} children={ 
+                                <Route path={"/sendorder"} children={ 
                                     <Modal><OrderDetails /></Modal>
                                 } />  
                                 <Route path={"/feed/:id"} children={
@@ -54,7 +53,7 @@ export default function App() {
                                 } />
                                 <ProtectedRoute path={"/profile/orders/:id"} children={
                                     <Modal><FeedDetails /></Modal>
-                                } />                                  
+                                } />                            
                             </>)
                         }                           
                     </div>                    

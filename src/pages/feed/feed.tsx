@@ -56,7 +56,7 @@ export default function FeedPage () {
                             <p className={`text text_type_main-default`}>Выполнено за сегодня:</p>
                             <p className={`text text_type_digits-large  text_color_primary ${style.feed__mainTitle}`}>{totalToday}</p>
                         </div>
-                    </div>
+                    </div>     
                 </>
             ) : null}
         </>

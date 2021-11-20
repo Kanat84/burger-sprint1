@@ -7,7 +7,6 @@ import ProfileOptions from '../../components/profile-options/profile-options'
 import ProfileOrders from '../../components/profile-orders/profile-orders'
 
 export default function ProfilePage() {
-    //const { path } = useRouteMatch();
     const dispatch = useDispatch();
     const history = useHistory();
     const location = useLocation<TLocationState>();
@@ -50,8 +49,8 @@ export default function ProfilePage() {
             </div>         
             <Switch location={background || location}>
                 <Route exact path={`/profile`} component={ ProfileOptions } />
-                <Route exact path={`/profile/orders`} component={ ProfileOrders } />
-            </Switch>
+                <Route exact path={`/profile/orders`} component={ ProfileOrders } />        
+            </Switch>                    
         </>    
     )
 }
