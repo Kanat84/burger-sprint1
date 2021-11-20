@@ -1,30 +1,19 @@
 import { useRef } from 'react';
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import constructorStyle from "../burger-constructor/burger-constructor.module.css";
-//import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
 import { TBurgerIngredientProps, TBurgerConstructorIngredientProps } from '../../utils/prop-types';
-import {
-    MOVE_INGREDIENT_IN_CONSTRUCTOR, 
-    REMOVE_INGREDIENT_FROM_CONSTRUCTOR
-  } from '../../services/constants';
+import { MoveIngredientInConstructorAction, RemoveIngredientFromConstructorAction } from '../../services/actions/burger-constructor';  
 import { useDispatch } from '../../services/types';
 
 export default function BurgerConstructorIngredient (props: TBurgerConstructorIngredientProps) {
     const dispatch = useDispatch();
     const handleRemoveIngredient = () => {
-        dispatch({
-            type: REMOVE_INGREDIENT_FROM_CONSTRUCTOR,
-            id: props.uuid
-        })
+        dispatch(RemoveIngredientFromConstructorAction(props.uuid));
     }
     const ref = useRef<HTMLLIElement>(null);
     const moveCardHandler = (dragIndex: number, hoverIndex: number) => {
-        dispatch({
-            type: MOVE_INGREDIENT_IN_CONSTRUCTOR,
-            dragIndex,
-            hoverIndex
-        })
+        dispatch(MoveIngredientInConstructorAction(dragIndex, hoverIndex));
     }
     const [{ isDragging }, drag] = useDrag({
         type: 'sortable',

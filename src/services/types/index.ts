@@ -5,6 +5,8 @@ import { ThunkAction } from 'redux-thunk';
 import { TUsersActions } from "../actions/users";
 import { TConstructorActions } from "../actions/burger-constructor";
 import { TIngredientsActions } from "../actions/burger-ingredients";
+import { TOrdersActions } from "../actions/orders";
+import { TWsActions } from "../actions/ws";
 import { rootReducer } from "../../services/reducers";
 
 export type TUser = {
@@ -23,7 +25,7 @@ export type TPasswordData = {
     token: string 
 }
 
-type TApplicationActions = TUsersActions | TConstructorActions | TIngredientsActions;
+type TApplicationActions = TUsersActions | TConstructorActions | TIngredientsActions | TOrdersActions | TWsActions;
 //export type RootState = ReturnType<typeof store.getState>;
 //export type AppDispatch = typeof store.dispatch;
 export type AppThunk<ReturnType = void> = ThunkAction<
@@ -38,3 +40,14 @@ export type AppDispatch = <TReturnType>(action: TApplicationActions | AppThunk |
 
 export const useDispatch = () => dispatchHook<AppDispatch>();
 export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
+
+export type TFeedItem = {
+    createdAt: string;
+    ingredients: [string];
+    name: string;
+    number: number;
+    status: string;
+    updatedAt: string;
+    _id: string;
+    owner?: string;
+}

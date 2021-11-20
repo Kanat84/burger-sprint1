@@ -1,29 +1,9 @@
-.form {
-    min-width: 100%;
-    text-align: right;
-}
-
-.form .input {
-    width: 100%;
-}
-
-.form__buttons {
-    display: flex;
-    max-width: 480px;
-    justify-content: flex-start;
-    flex-direction: row-reverse;
-}
-
 .container {
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
 }
   
-.text {
-    width: 100%;
-}
-
 .menu {
     padding: 0;
     list-style-type: none;

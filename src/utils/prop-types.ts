@@ -1,5 +1,6 @@
 import { SyntheticEvent } from 'react';
 import { Location } from 'history';
+import { TFeedItem } from "../services/types";
 
 export type TBurgerIngredientProps = {
     _id: string,
@@ -21,7 +22,6 @@ export type TBurgerIngredientDetailProps = {
     name: string,
     image: string,
     price: number,
-    onOpen: (e: SyntheticEvent) => void,
     _id: string,
     type: string;
 }
@@ -83,3 +83,6 @@ export type TSendDataProps = {
     }
 }
 
+export type TFeedItemProps = {
+    data: TFeedItem;
+}

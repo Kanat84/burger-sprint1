@@ -11,11 +11,6 @@ import {
 import { TOrdersActions } from '../actions/orders';
 
 type TInitialState = {
-   // wsConnected: boolean,
-   // orders: TFeedItem[],
-    total: number,
-    totalToday: number,
-   // order: TFeedItem | null,
     order: string | null;
     orderRequest: boolean,
     orderFailed: boolean,
@@ -25,13 +20,9 @@ type TInitialState = {
 }
 
 const initialState: TInitialState = {
-   // wsConnected: false,
-   // orders: [],
     order: null,
     orderRequest: false,
     orderFailed: false,
-    total: 0,
-    totalToday: 0,
     orderNumber: null,
     orderNumberRequest: false,
     orderNumberFailed: false,

@@ -6,10 +6,9 @@ import {
     GetUserRequestAction, GetUserFailedAction, GetUserSuccessAction, SetIsAuthAction, 
     DeleteIsAuthAction, GetUserInfoAction, ChangeUserInfoAction
 } from "./actions/users"
-import { GetOrderRequestAction, GetOrderFailedAction, GetOrderSuccessAction, ClearOrderAction, 
+import { GetOrderRequestAction, GetOrderFailedAction, GetOrderSuccessAction, 
     GetOrderNumberRequestsAction, GetOrderNumberSuccessAction, GetOrderNumberFailedAction, ClearOrderNumberAction } from "./actions/orders"
 import { GetIngredientsRequestsActions, GetIngredientsSuccessActions, GetIngredientsFailedActions } from "./actions/burger-ingredients"
-import { GET_ORDER_NUMBER_SUCCESS } from "./constants"
 
 export function postForgotPassword(emailValue: string, history: History) {
     return function (dispatch: AppDispatch) {
@@ -192,7 +191,7 @@ export function postChangeUserInfo(form: TUserData) {
     }
 }
 
-/*export function postOrder(idsArr: string[]) {
+export function postOrder(idsArr: string[]) {
     const accessToken = getCookie('token')
     return function (dispatch: AppDispatch) {
         dispatch(GetOrderNumberRequestsAction())
@@ -215,7 +214,7 @@ export function postChangeUserInfo(form: TUserData) {
                 if (res && res.success) {
                     dispatch(GetOrderNumberSuccessAction(res.order.number))
                 } else {
-                    dispatch(GetOrderNumberFailedAction)
+                    dispatch(GetOrderNumberFailedAction())
                 }
             }
         )
@@ -225,7 +224,31 @@ export function postChangeUserInfo(form: TUserData) {
             dispatch(ClearOrderNumberAction())
         })
     }
-}*/
+}
+
+export function getOrder (orderNumber: string): AppThunk {
+    return function (dispatch: AppDispatch) {
+      dispatch(GetOrderRequestAction())
+      getData(`${apiURL}/orders/${orderNumber}`)
+        .then(res => {
+          if (res.ok) {
+            return res.json();
+          }
+          throw new Error(`Cannot get data from API. Status code: ${res.status}`);
+        })
+        .then(data => {
+          if (data && data.success) {
+            dispatch(GetOrderSuccessAction(data.orders))
+          } else {
+            dispatch(GetOrderFailedAction())
+          }
+        })
+        .catch(err => {
+          console.log(err)
+          dispatch(GetOrderFailedAction())
+        })
+    }
+}
 
 export function getIngredients() {
     return function (dispatch: AppDispatch) {

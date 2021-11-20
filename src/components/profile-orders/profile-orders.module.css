@@ -1,0 +1,7 @@
+.orders {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow-y: scroll;
+    max-height: 85vh;
+}
