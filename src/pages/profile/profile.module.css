@@ -27,3 +27,11 @@
     max-width: 320px;
     opacity: .4;
 }
+
+.nav__link {
+    color: #8585AD;
+}
+    
+.nav__linkActive {
+    color: #F2F2F3;
+}

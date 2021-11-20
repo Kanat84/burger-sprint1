@@ -4,10 +4,10 @@ import FeedItem from "../feed-item/feed-item";
 import { WsConnectionStartAction, WsConnectionClosedAction } from "../../services/actions/ws";
 import { wssURL } from "../../utils/constants";
 import { getCookie } from "../../utils/funcs";
-import { useDispatch, useSelector } from '../../services/types';
+import { RootState, useDispatch, useSelector } from '../../services/types';
 
 export default function ProfileOrders() {
-    const { orders, wsConnected, wsError } = useSelector((state) => state.wsData);
+    const { orders, wsConnected, wsError } = useSelector((state: RootState) => state.wsData);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -20,13 +20,13 @@ export default function ProfileOrders() {
 
     return (
         <>
-            {wsError && (<h1>Произошла ошибка, попробуйте позже...</h1>)}
-            {!wsError && wsConnected && orders.length === 0 && <h1>Идет загрузка...</h1>}
-            {!wsError && wsConnected && orders && orders.length > 0 && (
+            {wsError && (<h1 style={{textAlign: "center"}}>Произошла ошибка, попробуйте позже...</h1>)}
+            {!wsError && wsConnected && orders.length === 0 && <h1 style={{ textAlign: "center" }}>Идет загрузка...</h1>}
+            {(!wsError && wsConnected && orders && orders.length !== 0) ? (
                 <div className={`${style.orders} mt-8 custom-scroll`}>
                     {orders.map((item, index) => <FeedItem data={item} key={index} />)}
                 </div>
-            )}
+            ): null}
         </>
     );
 }

@@ -10,7 +10,7 @@ import { GetOrderRequestAction, GetOrderFailedAction, GetOrderSuccessAction,
     GetOrderNumberRequestsAction, GetOrderNumberSuccessAction, GetOrderNumberFailedAction, ClearOrderNumberAction } from "./actions/orders"
 import { GetIngredientsRequestsActions, GetIngredientsSuccessActions, GetIngredientsFailedActions } from "./actions/burger-ingredients"
 
-export function postForgotPassword(emailValue: string, history: History) {
+export function postForgotPassword(emailValue: string, history: History): AppThunk {
     return function (dispatch: AppDispatch) {
         dispatch(GetUserRequestAction())
         sendData({
@@ -35,7 +35,7 @@ export function postForgotPassword(emailValue: string, history: History) {
     }
 }
 
-export function postResetPassword(form: TPasswordData, history: History) {
+export function postResetPassword(form: TPasswordData, history: History): AppThunk {
     return function (dispatch: AppDispatch) {
         dispatch(GetUserRequestAction())
         sendData({
@@ -65,7 +65,7 @@ export function postResetPassword(form: TPasswordData, history: History) {
     }
 }
 
-export function postRegister (form: TUserData, history: History) {
+export function postRegister (form: TUserData, history: History): AppThunk {
     return function (dispatch: AppDispatch) {
         dispatch(GetUserRequestAction())
         sendData({
@@ -96,7 +96,7 @@ export function postRegister (form: TUserData, history: History) {
     }
 }
 
-export function postLogin(form: Omit<TUserData, 'name'>, history: History, from: { pathname: string }) {
+export function postLogin(form: Omit<TUserData, 'name'>, history: History, from: { pathname: string }): AppThunk {
     return function (dispatch: AppDispatch) {
         dispatch(GetUserRequestAction());
         sendData({
@@ -127,7 +127,7 @@ export function postLogin(form: Omit<TUserData, 'name'>, history: History, from:
     }
 }
 
-export function postLogout(history: History) {
+export function postLogout(history: History): AppThunk {
     return function (dispatch: AppDispatch) {
         dispatch(GetUserRequestAction())
         sendData({
@@ -154,7 +154,7 @@ export function postLogout(history: History) {
     }
 }
 
-export function getUserInfo() {
+export function getUserInfo(): AppThunk {
     return async function (dispatch: AppDispatch) {
         dispatch(GetUserRequestAction())
         await getUser()
@@ -173,7 +173,7 @@ export function getUserInfo() {
     }
 }
 
-export function postChangeUserInfo(form: TUserData) {
+export function postChangeUserInfo(form: TUserData): AppThunk {
     return async function (dispatch: AppDispatch) {
         dispatch(GetUserRequestAction())
         await patchUser(form)
@@ -191,7 +191,7 @@ export function postChangeUserInfo(form: TUserData) {
     }
 }
 
-export function postOrder(idsArr: string[]) {
+export function postOrder(idsArr: string[]): AppThunk {
     const accessToken = getCookie('token')
     return function (dispatch: AppDispatch) {
         dispatch(GetOrderNumberRequestsAction())
@@ -250,7 +250,7 @@ export function getOrder (orderNumber: string): AppThunk {
     }
 }
 
-export function getIngredients() {
+export function getIngredients(): AppThunk {
     return function (dispatch: AppDispatch) {
         dispatch(GetIngredientsRequestsActions())
         getData(`${apiURL}/ingredients`)

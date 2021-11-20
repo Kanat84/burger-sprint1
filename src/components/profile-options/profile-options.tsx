@@ -48,7 +48,7 @@ export default function ProfileOptions() {
     }
 
     return (
-        <div className={`${styles.text}`}>
+        <div className={`${styles.text} mt-30`}>
             <form onSubmit={handleSubmit} className={`${styles.form}`}>
                 <div className="form__item mb-6">
                     <Input

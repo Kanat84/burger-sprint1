@@ -1,7 +1,5 @@
 import { Middleware, MiddlewareAPI } from "redux";
-import { wsActions } from "../actions/ws";
-
-type wsActionsType = typeof wsActions;
+import { wsActionsType } from "../types";
 
 export function wsMiddleWare(wsActions: wsActionsType): Middleware {
     return (store: MiddlewareAPI) => {

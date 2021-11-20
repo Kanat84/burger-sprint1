@@ -14,7 +14,7 @@ export default function FeedPage () {
         dispatch(WsConnectionClosedAction());
         }
     }, [dispatch])
-
+    
     return (
         <>
             {wsError && <h1 style={{textAlign: "center"}}>Произошла ошибка, попробуйте позже...</h1>}

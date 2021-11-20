@@ -33,25 +33,26 @@ export default function App() {
                             <Route exact path="/forgot-password" component={ ForgotPasswordPage } /> 
                             <Route exact path="/reset-password" component={ ResetPasswordPage } />                     
                             <ProtectedRoute exact path="/profile"><ProfilePage /></ProtectedRoute>
-                            <ProtectedRoute exact path={"/profile/orders/:id"}><FeedDetails /></ProtectedRoute>                            
-                            <Route exact path={"/ingredients/:id"} component={ IngredientDetails } />
-                            <Route exact path={"/feed"} component={ FeedPage } />         
-                            <Route exact path={"/feed/:id"} component={ FeedDetails } />                     
+                            <ProtectedRoute exact path="/profile/orders"><ProfilePage /></ProtectedRoute>
+                            <ProtectedRoute exact path="/profile/orders/:id"><FeedDetails /></ProtectedRoute>
+                            <Route exact path="/ingredients/:id" component={ IngredientDetails } />
+                            <Route exact path="/feed" component={ FeedPage } />         
+                            <Route exact path="/feed/:id" component={ FeedDetails } />                     
                             <Route exact path="/" component={ HomePage } />                                          
                             <Route exact path="" component={ NotFound404 } />                       
                         </Switch>
                         {background &&
                             (<>
-                                <Route path={'/ingredients/:id'} children={
+                                <Route path={"/ingredients/:id"} children={
                                     <Modal><IngredientDetails/></Modal>
                                 } />                                
-                                <Route path={'/sendOrder'} children={ 
+                                <Route path={"/sendOrder"} children={ 
                                     <Modal><OrderDetails /></Modal>
                                 } />  
-                                <Route path={'/feed/:id'} children={
+                                <Route path={"/feed/:id"} children={
                                     <Modal><FeedDetails /></Modal>
                                 } />
-                                <ProtectedRoute path={'/profile/orders/:id'} children={
+                                <ProtectedRoute path={"/profile/orders/:id"} children={
                                     <Modal><FeedDetails /></Modal>
                                 } />                                  
                             </>)

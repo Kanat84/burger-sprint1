@@ -17,6 +17,11 @@ body {
     box-sizing: border-box;
 }
 
+.main__container {
+    display: flex;
+    justify-content: space-between;
+}
+
 .link {
     color: #000;
     text-decoration: none;

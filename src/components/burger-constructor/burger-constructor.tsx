@@ -34,7 +34,7 @@ export default function BurgerConstructor() {
     function handleOpenModal () {
         dispatch(ClearOrderNumberAction());
         if (!isAuth) {
-            history.push('/login');
+            return history.push('/login');
         }        
         if (!bun) { 
             return alert('Выберите булочку'); 

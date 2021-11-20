@@ -1,13 +1,13 @@
 import { useParams, useLocation, useHistory } from "react-router-dom";
 import style from './ingredient-details.module.css';
-import { TBurgerIngredientProps, TIngredientDetailsProps } from "../../utils/prop-types";
+import { TIngredientDetailsProps } from "../../utils/prop-types";
 import { RootState, useSelector } from '../../services/types';
 import { TLocationState } from '../../utils/prop-types';
 
 export default function IngredientDetails() {
     const { ingredients } = useSelector((state: RootState) => state.burgerIngredients);
     const { id } = useParams<TIngredientDetailsProps>();
-    const ingredient: TBurgerIngredientProps | undefined = ingredients.find((item) => item._id === id);
+    const ingredient = ingredients.find((item) => item._id === id);
     const location = useLocation<TLocationState>();
     const history = useHistory();
     const background = (history.action === 'PUSH' || history.action === 'REPLACE') && location.state && location.state.background;

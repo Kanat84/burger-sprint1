@@ -8,6 +8,7 @@ import { TIngredientsActions } from "../actions/burger-ingredients";
 import { TOrdersActions } from "../actions/orders";
 import { TWsActions } from "../actions/ws";
 import { rootReducer } from "../../services/reducers";
+import { wsActions } from "../actions/ws";
 
 export type TUser = {
     email: string;
@@ -51,3 +52,5 @@ export type TFeedItem = {
     _id: string;
     owner?: string;
 }
+
+export type wsActionsType = typeof wsActions;

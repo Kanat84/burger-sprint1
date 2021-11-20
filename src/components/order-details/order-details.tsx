@@ -15,16 +15,18 @@ export default function OrderDetails() {
 
   return (
     <>
-      {!orderNumber && (<h1>Отправка данных на сервер...</h1>)}
-      <div className={`${style.order} pb-15`}>
-        <h3 className={`${style.title} text text_primary_ligth text_type_digits-large`}>{orderNumber}</h3>
-        <p className="text text_type_main-medium mt-8">идентификатор заказа</p>
-        <div className={`${style.status} mt-15 mb-15`}> 
-          <img src={imgDone} alt="готово" />
-        </div>     
-        <p className="text text_type_main-default">Ваш заказ начали готовить</p>
-        <p className={`${style.subtitle} text text_type_main-default mt-2`}>Дождитесь готовности на орбитальной станции</p>
-      </div>
+      {!orderNumber && (<h1>Идет загрузка...</h1>)}
+      {orderNumber &&
+        <div className={`${style.order} pb-15`}>
+          <h3 className={`${style.title} text text_primary_ligth text_type_digits-large`}>{orderNumber}</h3>
+          <p className="text text_type_main-medium mt-8">идентификатор заказа</p>
+          <div className={`${style.status} mt-15 mb-15`}> 
+            <img src={imgDone} alt="готово" />
+          </div>     
+          <p className="text text_type_main-default">Ваш заказ начали готовить</p>
+          <p className={`${style.subtitle} text text_type_main-default mt-2`}>Дождитесь готовности на орбитальной станции</p>
+        </div>
+      }
     </> 
   );
 };

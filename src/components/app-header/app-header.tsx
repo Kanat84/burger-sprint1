@@ -8,7 +8,6 @@ export default function AppHeader() {
   const isConstructor = !!useRouteMatch({ path: '/', exact: true});
   const isProfile = !!useRouteMatch('/profile');
   const isLogin = !!useRouteMatch('/login');
-  //const isOrder = !!useRouteMatch('/orders');  
   const isIngredient = !!useRouteMatch('/ingredients/:id');  
   const isFeed = !!useRouteMatch('/feed');
 
