@@ -9,10 +9,8 @@ import { RootState, useSelector } from '../../services/types';
 export default function FeedItem(props: TFeedItemProps) {
     const location = useLocation<TLocationState>();
     const { url } = useRouteMatch();
-
     const { ingredients } = useSelector((state: RootState) => state.burgerIngredients);
     const _id: number = props.data.number;
-
     const uniqueOrderIngredients = Array.from(new Set(props.data.ingredients));
 
     const orderIngredients = uniqueOrderIngredients.map((ingredient) => {

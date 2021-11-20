@@ -7,14 +7,15 @@ import {
     GET_ORDER_NUMBER_SUCCESS,
     GET_ORDER_NUMBER_FAILED,
     CLEAR_ORDER_NUMBER
-  } from '../constants';
+} from '../constants';
+import { TFeedItem } from "../types";
 
 export interface IGetOrderRequestAction {
     readonly type: typeof GET_ORDER_REQUEST;
 }
 export interface IGetOrderSuccessAction {
     readonly type: typeof GET_ORDER_SUCCESS;
-    readonly payload: string; 
+    readonly payload: TFeedItem[]; 
 }
 export interface IGetOrderFailedAction {
     readonly type: typeof GET_ORDER_FAILED;
@@ -51,7 +52,7 @@ export function GetOrderRequestAction(): IGetOrderRequestAction {
         type: GET_ORDER_REQUEST
     });
 }
-export function GetOrderSuccessAction(payload: string): IGetOrderSuccessAction {
+export function GetOrderSuccessAction(payload: TFeedItem[]): IGetOrderSuccessAction {
     return ({
         type: GET_ORDER_SUCCESS,
         payload

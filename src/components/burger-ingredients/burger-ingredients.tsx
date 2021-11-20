@@ -1,6 +1,5 @@
 import { createRef, useState, SyntheticEvent } from 'react';
 import style from './burger-ingredients.module.css';
-import appStyles from '../app/app.module.css';
 import BurgerIngrediensDetail from "../burger-ingredients-detail/burger-ingredients-detail";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { TBurgerIngredientProps } from '../../utils/prop-types';
@@ -40,13 +39,13 @@ export default function BurgerIngredients() {
                 <div className={style.construct}>
                     <h1 className="text text_type_main-large mt-10">Соберите бургер</h1>
                     <div style={{ display: 'flex' }} className='mt-5'>
-                        <a className={appStyles.link} href="#bun">
+                        <a className={style.link} href="#bun">
                             <Tab value="bun" active={current === 'bun'} onClick={handleTabClick}>Булка</Tab>
                         </a>
-                        <a className={appStyles.link} href="#sauce">
+                        <a className={style.link} href="#sauce">
                             <Tab value="sauce" active={current === 'sauce'} onClick={handleTabClick}>Соусы</Tab>
                         </a>
-                        <a className={appStyles.link} href="#main">
+                        <a className={style.link} href="#main">
                             <Tab value="main" active={current === 'main'} onClick={handleTabClick}>Начинки</Tab>
                         </a>
                     </div>

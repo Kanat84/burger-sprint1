@@ -1,4 +1,3 @@
-//import { useSelector } from "react-redux";
 import { Redirect, Route } from 'react-router-dom';
 import { apiURL } from "./constants";
 import { TSetCookieProps, TProtectedRouteProps, TSendDataProps } from './prop-types';

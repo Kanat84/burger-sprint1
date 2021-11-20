@@ -13,7 +13,7 @@ export default function IngredientDetails() {
     const background = (history.action === 'PUSH' || history.action === 'REPLACE') && location.state && location.state.background;
     return (  
         <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', margin: 'auto'}}>                
-            <h1 className={`${style.title} ${!background && 'mt-30'} text text_color_primary text_type_main-large`}>Детали ингредиента</h1>                       
+            <h1 className={`${style.title} ${!background && 'mt-15'} text text_color_primary text_type_main-large`}>Детали ингредиента</h1>                       
             {ingredient && (
                 <div className={style.body}>
                     <img src={ingredient?.image_large} alt={ingredient?.name} className="mb-4" />

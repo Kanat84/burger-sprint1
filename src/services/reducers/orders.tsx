@@ -9,9 +9,10 @@ import {
     CLEAR_ORDER_NUMBER
 } from "../constants";
 import { TOrdersActions } from '../actions/orders';
+import { TFeedItem } from "../types";
 
 type TInitialState = {
-    order: string | null;
+    order: TFeedItem[] | null;
     orderRequest: boolean,
     orderFailed: boolean,
     orderNumber: string | null,
