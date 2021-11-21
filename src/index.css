@@ -1,11 +1,10 @@
-/*a {color: inherit; text-decoration: none;}*/
-
 #modal-root {
     display: flex;
     justify-content: center;
     align-items: center;
     position: fixed;
     top: 0;
+    z-index: 999;    
 }
 
 body {
@@ -16,6 +15,11 @@ body {
     max-width: 1280px;
     margin: auto;
     box-sizing: border-box;
+}
+
+.main__container {
+    display: flex;
+    justify-content: space-between;
 }
 
 .link {
@@ -36,7 +40,6 @@ a:hover {
     text-align: center;
 }
 
-/*Не придумал ничего по поводу размера инпута поэтому пропишу тут*/
 .input {
     width: 480px!important;
 }

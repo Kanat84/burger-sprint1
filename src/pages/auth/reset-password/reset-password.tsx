@@ -1,14 +1,17 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory, Redirect } from 'react-router-dom';
 import styles from './reset-password.module.css';
 import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { postResetPassword, DELETE_WAS_ON_FORGOT_PAGE } from "../../../services/actions/users";
+import { postResetPassword } from "../../../services/funcs";
+import {
+    DELETE_WAS_ON_FORGOT_PAGE
+  } from '../../../services/constants';
+import { RootState, useDispatch, useSelector } from '../../../services/types';
 
 export default function ResetPasswordPage() {
     const history = useHistory();
     const dispatch = useDispatch();
-    const { wasOnForgotPass, isAuth }: any = useSelector<any>(state => state.usersData);
+    const { wasOnForgotPass, isAuth } = useSelector((state: RootState) => state.usersData);
     const [form, setValue] = useState<{ password: string; token: string }>({ password: "", token: "" })
 
     function handleChange(e: ChangeEvent<HTMLInputElement>) {

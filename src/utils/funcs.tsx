@@ -1,7 +1,9 @@
-import { useSelector } from "react-redux";
 import { Redirect, Route } from 'react-router-dom';
-import { apiURL } from "./consts";
+import { apiURL } from "./constants";
 import { TSetCookieProps, TProtectedRouteProps, TSendDataProps } from './prop-types';
+import { TUserData, RootState, useSelector } from '../services/types';
+import moment, { Moment } from 'moment';
+import 'moment/locale/ru'
 
 export async function sendData(options: TSendDataProps) {
     return await fetch(options.url, {
@@ -70,11 +72,11 @@ export async function fetchWithRefresh(url: string, options: RequestInit = {}) {
         return await checkResponse(res);
     } catch (err: any) {
         if (err.message === "jwt expired") {
-            const refreshData = await refreshToken(); //обновляем токен
+            const refreshData = await refreshToken();
             localStorage.setItem("refreshToken", refreshData.refreshToken);
             setCookie("token", refreshData.accessToken);
             (options.headers as { [key: string]: string }).authorization = refreshData.accessToken;
-            const res = await fetch(url, options); //повторяем запрос
+            const res = await fetch(url, options);
             return await checkResponse(res);
         } else {
             return Promise.reject(err);
@@ -100,7 +102,7 @@ export async function getUser() {
     })
 }
 
-export async function patchUser(formData: { email: string; password: string; name: string; }) {
+export async function patchUser(form: TUserData) {
     const accessToken = getCookie('token')
     if (!accessToken) {
         return { user: null };
@@ -111,12 +113,12 @@ export async function patchUser(formData: { email: string; password: string; nam
             'Content-Type': 'application/json',
             'authorization': accessToken
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(form)
     })
 }
 
 export function ProtectedRoute({ children, exact, path }: TProtectedRouteProps) {
-    const { isAuth }: any = useSelector<any>(state => state.usersData);
+    const { isAuth } = useSelector((state: RootState) => state.usersData);
     return (
         <Route
             exact={exact}
@@ -135,4 +137,20 @@ export function ProtectedRoute({ children, exact, path }: TProtectedRouteProps) 
             }
         />
     );
- }
+}
+
+export function getDate (date: Moment | string | undefined) {
+    moment.locale('ru');
+    date = moment(date);
+    let daysAgo: string = date.from(moment());
+    const timeGreenwich = `${moment(date).format('ZZ')[0]}${moment(date).format('ZZ')[2]}`;
+    const time = moment(date).format(`HH:mm i-[GMT]${timeGreenwich}`);
+    if (date.format('MMMM DD YYYY') === moment().subtract(1, 'days').format('MMMM DD YYYY')
+        || daysAgo === 'день назад') {
+        daysAgo = 'Вчера';
+    }
+    if (date.format('MMMM DD YYYY') === moment().format('MMMM DD YYYY'))
+        daysAgo = 'Сегодня';
+    const newDate = `${daysAgo}, ${time}`;
+    return newDate;
+} 

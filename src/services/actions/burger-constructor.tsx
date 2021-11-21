@@ -1,57 +1,66 @@
-import { Dispatch } from "react";
-import { apiURL } from "../../utils/consts";
-import { sendData } from "../../utils/funcs";
+import {
+    ADD_INGREDIENT_TO_CONSTRUCTOR,
+    REMOVE_INGREDIENT_FROM_CONSTRUCTOR,
+    ADD_BUN_TO_CONSTRUCTOR,
+    MOVE_INGREDIENT_IN_CONSTRUCTOR,
+    CLEAR_CONSTRUCTOR
+  } from '../constants';
+import { TBurgerConstructorProps } from '../../utils/prop-types';
 
-export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
-export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
-export const GET_ORDER_FAILED = 'GET_ORDER_FAILED';
-export const CLEAR_ORDER = 'CLEAR_ORDER';
-export const ADD_INGREDIENT_TO_CONSTRUCTOR = 'ADD_INGREDIENT_TO_CONSTRUCTOR';
-export const REMOVE_INGREDIENT_FROM_CONSTRUCTOR = 'REMOVE_INGREDIENT_FROM_CONSTRUCTOR';
-export const ADD_BUN_TO_CONSTRUCTOR = 'ADD_BUN_TO_CONSTRUCTOR';
-export const MOVE_INGREDIENT_IN_CONSTRUCTOR = 'MOVE_INGREDIENT_IN_CONSTRUCTOR';
-export const CLEAR_CONSTRUCTOR = 'CLEAR_CONSTRUCTOR';
+export interface IAddIngredientToConstructorAction {
+    readonly type: typeof ADD_INGREDIENT_TO_CONSTRUCTOR;
+    readonly item: TBurgerConstructorProps;
+}
+export interface IRemoveIngredientFromConstructorAction {
+    readonly type: typeof REMOVE_INGREDIENT_FROM_CONSTRUCTOR;
+    readonly id: string;
+}
+export interface IAddBunToConstructorAction {
+    readonly type: typeof ADD_BUN_TO_CONSTRUCTOR;
+    readonly item: TBurgerConstructorProps;
+}
+export interface IMoveIngredientInConstructorAction {
+    readonly type: typeof MOVE_INGREDIENT_IN_CONSTRUCTOR;
+    readonly dragIndex: number;
+    readonly hoverIndex: number;    
+}
+export interface IClearConstructorAction {
+    readonly type: typeof CLEAR_CONSTRUCTOR;
+}
+export type TConstructorActions =
+    IAddIngredientToConstructorAction |
+    IRemoveIngredientFromConstructorAction |
+    IAddBunToConstructorAction |
+    IMoveIngredientInConstructorAction |
+    IClearConstructorAction;
 
-export function postOrder(idsArr: string[]) {
-    return function (dispatch: Dispatch<any>) {
-        dispatch({
-            type: GET_ORDER_REQUEST
-        })
-        sendData({
-            url: `${apiURL}/orders`,
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: {ingredients: idsArr}
-        })
-            .then((res) => {
-                if (res.ok) {
-                    return res.json();
-                }
-                throw new Error(`Something wrong: ${res.status}`)
-            })
-            .then(res => {
-                    if (res && res.success) {
-                        dispatch({
-                            type: GET_ORDER_SUCCESS,
-                            payload: res.order.number
-                        })
-                    } else {
-                        dispatch({
-                            type: GET_ORDER_FAILED
-                        })
-                    }
-                }
-            )
-            .catch(err => {
-                console.log(err)
-                dispatch({
-                    type: GET_ORDER_FAILED
-                })
-                dispatch({
-                    type: CLEAR_ORDER
-                })
-            })
-    }
+export function AddBunToConstructorAction(item: TBurgerConstructorProps): IAddBunToConstructorAction {
+    return ({
+        type: ADD_BUN_TO_CONSTRUCTOR,
+        item
+    });
+}
+export function AddIngredientToConstructorAction(item: TBurgerConstructorProps): IAddIngredientToConstructorAction {
+    return ({
+        type: ADD_INGREDIENT_TO_CONSTRUCTOR,
+        item
+    });
+}
+export function MoveIngredientInConstructorAction(dragIndex: number, hoverIndex: number): IMoveIngredientInConstructorAction {
+    return ({
+        type: MOVE_INGREDIENT_IN_CONSTRUCTOR,
+        dragIndex, 
+        hoverIndex
+    });
+}
+export function RemoveIngredientFromConstructorAction(id: string): IRemoveIngredientFromConstructorAction {
+    return ({
+        type: REMOVE_INGREDIENT_FROM_CONSTRUCTOR,
+        id
+    });
+}
+export function ClearConstructorAction(): IClearConstructorAction {
+    return ({
+        type: CLEAR_CONSTRUCTOR
+    });
 }

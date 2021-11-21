@@ -1,7 +1,8 @@
 import { SyntheticEvent } from 'react';
 import { Location } from 'history';
+import { TFeedItem } from "../services/types";
 
-export type TIngredient = {
+export type TBurgerIngredientProps = {
     _id: string,
     name: string,
     type: string,
@@ -21,7 +22,6 @@ export type TBurgerIngredientDetailProps = {
     name: string,
     image: string,
     price: number,
-    onOpen: (e: SyntheticEvent) => void,
     _id: string,
     type: string;
 }
@@ -32,7 +32,6 @@ export type TIngredientDetailsProps = {
 
 export type TModalProps = {
     title?: string,
-    onClose: () => void,
     children?: React.ReactNode;
 }
 
@@ -62,19 +61,19 @@ export type TProtectedRouteProps = {
     children?: React.ReactNode;
 }
 
-export type TBurgerConstructorProps = TIngredient & {
+export type TBurgerConstructorProps = TBurgerIngredientProps & {
     onOpen: () => {},
     uuid: string;
 }
 
-export type TBurgerConstructorIngredientProps = TIngredient & {
+export type TBurgerConstructorIngredientProps = TBurgerIngredientProps & {
     uuid: string;
 }
 
 export type TSendDataProps = {
     url: string,
     method: string;
-    headers: { "Content-Type": string }
+    headers: { "Content-Type": string; authorization?: string }
     body?: {
         ingredients?: Array<string>;
         email?: string;
@@ -84,3 +83,6 @@ export type TSendDataProps = {
     }
 }
 
+export type TFeedItemProps = {
+    data: TFeedItem;
+}

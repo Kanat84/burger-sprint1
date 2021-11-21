@@ -73,3 +73,8 @@
 .detail__name {
     text-align: center;
 }
+
+.link {
+    color: #000;
+    text-decoration: none;
+  }

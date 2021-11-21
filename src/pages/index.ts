@@ -5,6 +5,7 @@ import RegisterPage from './auth/register/register';
 import ForgotPasswordPage from './auth/forgot-password/forgot-password';
 import ResetPasswordPage from './auth/reset-password/reset-password';
 import ProfilePage from './profile/profile';
+import FeedPage from './feed/feed';
 
 export {
     HomePage,
@@ -13,5 +14,6 @@ export {
     RegisterPage,
     ForgotPasswordPage,
     ResetPasswordPage,
-    ProfilePage
+    ProfilePage,
+    FeedPage
 }

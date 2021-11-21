@@ -1,38 +1,20 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation, useHistory } from "react-router-dom";
 import style from './ingredient-details.module.css';
-import { getIngredients } from "../../services/actions/burger-ingredients";
-import {TIngredient, TIngredientDetailsProps} from "../../utils/prop-types";
+import { TIngredientDetailsProps } from "../../utils/prop-types";
+import { RootState, useSelector } from '../../services/types';
+import { TLocationState } from '../../utils/prop-types';
 
 export default function IngredientDetails() {
-    const dispatch = useDispatch();
-    const { ingredients, ingredientDetails }: any = useSelector<any>(state => state.burgerIngredients);
+    const { ingredients } = useSelector((state: RootState) => state.burgerIngredients);
     const { id } = useParams<TIngredientDetailsProps>();
-    let ingredient;
-    useEffect(() => {
-        if (ingredients.length <= 0) {
-            dispatch(getIngredients())
-        }
-    }, [dispatch, ingredients.length]);
-
-    function isEmptyObj(obj: {}) {
-        for (var key in obj) {
-            return false;
-        }
-        return true;
-    }    
-    if (!isEmptyObj(ingredientDetails)) {
-        ingredient = ingredientDetails;
-    } else {
-        ingredient = ingredients.find((item: TIngredient) => item._id === id);
-    }
-    return (        
-        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', margin: 'auto'}}>
-            {isEmptyObj(ingredientDetails) && (
-                <h1 className={`${style.title}  mt-30 text text_color_primary text_type_main-large`}>Детали ингредиента</h1>
-            )}
-            {ingredient && ( 
+    const ingredient = ingredients.find((item) => item._id === id);
+    const location = useLocation<TLocationState>();
+    const history = useHistory();
+    const background = (history.action === 'PUSH' || history.action === 'REPLACE') && location.state && location.state.background;
+    return (  
+        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', margin: 'auto'}}>                
+            <h1 className={`${style.title} ${!background && 'mt-15'} text text_color_primary text_type_main-large`}>Детали ингредиента</h1>                       
+            {ingredient && (
                 <div className={style.body}>
                     <img src={ingredient?.image_large} alt={ingredient?.name} className="mb-4" />
                     <p className={`${style.title} text text_type_main-medium mb-8`}>{ingredient?.name}</p>        
@@ -54,8 +36,8 @@ export default function IngredientDetails() {
                             <p className="text text_type_digits-default">{ingredient?.carbohydrates}</p>
                         </div>
                     </div>                    
-                </div>
-            )}
+                </div>       
+            )}  
         </div>        
     );
 };

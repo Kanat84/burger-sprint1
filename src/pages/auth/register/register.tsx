@@ -1,14 +1,14 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
-import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import styles from './register.module.css';
 import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { postRegister } from "../../../services/actions/users";
+import { postRegister } from "../../../services/funcs";
+import { RootState, useDispatch, useSelector } from '../../../services/types';
 
 export default function RegisterPage() {
     const history = useHistory();
     const dispatch = useDispatch();
-    const { isAuth }: any = useSelector<any>(state => state.usersData);
+    const { isAuth } = useSelector((state: RootState) => state.usersData);
     
     const [form, setValue] = useState<{ email: string; password: string; name: string }>({ email: '', password: '', name: '' })
     function handleChange(e: ChangeEvent<HTMLInputElement>) {
