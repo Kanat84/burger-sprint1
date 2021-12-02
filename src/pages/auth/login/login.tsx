@@ -3,7 +3,7 @@ import { Link, useHistory, Redirect, useLocation } from 'react-router-dom';
 import styles from './login.module.css';
 import { Input, Button, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
 import { postLogin } from "../../../services/funcs";
-import { RootState, useDispatch, useSelector } from '../../../services/types';
+import { useDispatch, useSelector } from '../../../services/types';
 
 export default function LoginPage() {
     const history = useHistory();
@@ -11,7 +11,7 @@ export default function LoginPage() {
     const dispatch = useDispatch();
 
     const [form, setValue] = useState<{ email: string; password: string }>({ email: '', password: '' });
-    const { isAuth } = useSelector((state: RootState) => state.usersData);
+    const { isAuth } = useSelector((state) => state.usersData);
     let { from } = location.state || {from: {pathname: '/'}}
 
     function handleChange(e: ChangeEvent<HTMLInputElement>) {

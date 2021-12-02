@@ -4,10 +4,10 @@ import FeedItem from "../feed-item/feed-item";
 import { WsConnectionStartAction, WsConnectionClosedAction } from "../../services/actions/ws";
 import { wssURL } from "../../utils/constants";
 import { getCookie } from "../../utils/funcs";
-import { RootState, useDispatch, useSelector } from '../../services/types';
+import { useDispatch, useSelector } from '../../services/types';
 
 export default function ProfileOrders() {
-    const { orders, wsConnected, wsError } = useSelector((state: RootState) => state.wsData);
+    const { orders, wsConnected, wsError } = useSelector((state) => state.wsData);
     const dispatch = useDispatch();
 
     useEffect(() => {

@@ -1,7 +1,7 @@
 import { Redirect, Route } from 'react-router-dom';
 import { apiURL } from "./constants";
 import { TSetCookieProps, TProtectedRouteProps, TSendDataProps } from './prop-types';
-import { TUserData, RootState, useSelector } from '../services/types';
+import { TUserData, useSelector } from '../services/types';
 import moment, { Moment } from 'moment';
 import 'moment/locale/ru'
 
@@ -118,7 +118,7 @@ export async function patchUser(form: TUserData) {
 }
 
 export function ProtectedRoute({ children, exact, path }: TProtectedRouteProps) {
-    const { isAuth } = useSelector((state: RootState) => state.usersData);
+    const { isAuth } = useSelector((state) => state.usersData);
     return (
         <Route
             exact={exact}

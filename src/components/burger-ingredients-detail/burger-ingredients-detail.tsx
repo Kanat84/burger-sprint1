@@ -3,11 +3,11 @@ import { Link, useLocation } from "react-router-dom";
 import style from './burger-ingredients-detail.module.css';
 import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import { TBurgerIngredientDetailProps, TBurgerIngredientProps } from '../../utils/prop-types';
-import { RootState, useSelector } from '../../services/types';
+import { useSelector } from '../../services/types';
 
 export default function BurgerIngredientDetail(props: TBurgerIngredientDetailProps) {
     const location = useLocation();
-    const {ingredients, bun} = useSelector((state: RootState) => state.burgerConstructor);
+    const {ingredients, bun} = useSelector((state) => state.burgerConstructor);
     let ingredientsCount = ingredients.filter((item: TBurgerIngredientProps) => item._id === props._id).length;
     let counter;
 

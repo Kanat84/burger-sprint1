@@ -4,12 +4,12 @@ import burgerConstructorStyle from "../burger-constructor/burger-constructor.mod
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { getDate } from "../../utils/funcs";
 import { TLocationState, TFeedItemProps } from "../../utils/prop-types";
-import { RootState, useSelector } from '../../services/types';
+import { useSelector } from '../../services/types';
 
 export default function FeedItem(props: TFeedItemProps) {
     const location = useLocation<TLocationState>();
     const { url } = useRouteMatch();
-    const { ingredients } = useSelector((state: RootState) => state.burgerIngredients);
+    const { ingredients } = useSelector((state) => state.burgerIngredients);
     const _id: number = props.data.number;
     const uniqueOrderIngredients = Array.from(new Set(props.data.ingredients));
 

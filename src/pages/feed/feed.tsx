@@ -3,11 +3,11 @@ import style from './feed.module.css';
 import FeedItem from "../../components/feed-item/feed-item";
 import {  WsConnectionStartAction, WsConnectionClosedAction } from "../../services/actions/ws";
 import { wssURL } from "../../utils/constants";
-import { RootState, useDispatch, useSelector } from '../../services/types';
+import { useDispatch, useSelector } from '../../services/types';
 
 export default function FeedPage () {
     const dispatch = useDispatch();
-    const { orders, total, totalToday, wsConnected, wsError } = useSelector((state: RootState) => state.wsData);
+    const { orders, total, totalToday, wsConnected, wsError } = useSelector((state) => state.wsData);
     useEffect(() => {       
         dispatch(WsConnectionStartAction(`${wssURL}/all`));   
         return () => {

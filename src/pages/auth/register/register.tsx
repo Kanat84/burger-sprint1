@@ -3,12 +3,12 @@ import { Link, Redirect, useHistory } from 'react-router-dom';
 import styles from './register.module.css';
 import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { postRegister } from "../../../services/funcs";
-import { RootState, useDispatch, useSelector } from '../../../services/types';
+import { useDispatch, useSelector } from '../../../services/types';
 
 export default function RegisterPage() {
     const history = useHistory();
     const dispatch = useDispatch();
-    const { isAuth } = useSelector((state: RootState) => state.usersData);
+    const { isAuth } = useSelector((state) => state.usersData);
     
     const [form, setValue] = useState<{ email: string; password: string; name: string }>({ email: '', password: '', name: '' })
     function handleChange(e: ChangeEvent<HTMLInputElement>) {

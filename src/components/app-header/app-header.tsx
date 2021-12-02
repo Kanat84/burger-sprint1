@@ -1,10 +1,10 @@
 import { NavLink, useRouteMatch } from 'react-router-dom';
 import styles from './app-header.module.css';
 import { BurgerIcon, ListIcon, Logo, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { RootState, useSelector } from '../../services/types';
+import { useSelector } from '../../services/types';
 
 export default function AppHeader() {
-  const { isAuth } = useSelector((state: RootState) => state.usersData);
+  const { isAuth } = useSelector((state) => state.usersData);
   const isConstructor = !!useRouteMatch({ path: '/', exact: true});
   const isProfile = !!useRouteMatch('/profile');
   const isLogin = !!useRouteMatch('/login');

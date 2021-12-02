@@ -3,11 +3,11 @@ import style from './burger-ingredients.module.css';
 import BurgerIngrediensDetail from "../burger-ingredients-detail/burger-ingredients-detail";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { TBurgerIngredientProps } from '../../utils/prop-types';
-import { RootState, useSelector } from '../../services/types';
+import { useSelector } from '../../services/types';
 
 export default function BurgerIngredients() { 
     const [current, setCurrent] = useState<string>('bun');
-    const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector((state:RootState)=> state.burgerIngredients) 
+    const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector((state)=> state.burgerIngredients) 
     const bunsRef = createRef<HTMLDivElement>();
     const saucesRef = createRef<HTMLDivElement>();
     const mainsRef  = createRef<HTMLDivElement>(); 

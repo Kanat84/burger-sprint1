@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import style from './order-details.module.css';
 import imgDone from '../../images/image.svg';
-import { RootState, useDispatch, useSelector } from '../../services/types';
+import { useDispatch, useSelector } from '../../services/types';
 import { ClearConstructorAction } from '../../services/actions/burger-constructor'
 
 export default function OrderDetails() {
-  const { orderNumber } = useSelector((state: RootState) => state.ordersData)
+  const { orderNumber } = useSelector((state) => state.ordersData)
   const dispatch = useDispatch();
   useEffect(() => {
     if (orderNumber) {
