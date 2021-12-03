@@ -28,7 +28,7 @@ export default function Modal (props: TModalProps) {
             <div className={`${style.modal} pt-10 pr-10 pl-10 pb-15`}>
                 <div className={style.header}>
                     <h3 className={`${style.title} text text_type_main-large`}>{props.title}</h3>
-                    <div className={style.close} onClick={closeModal}>
+                    <div className={style.close} onClick={closeModal} id="closeModal">
                         <CloseIcon type={"primary"} />
                     </div> 
                 </div>

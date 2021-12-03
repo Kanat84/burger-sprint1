@@ -18,8 +18,8 @@ export default function OrderDetails() {
       {!orderNumber && (<h1>Идет загрузка...</h1>)}
       {orderNumber &&
         <div className={`${style.order} pb-15`}>
-          <h3 className={`${style.title} text text_primary_ligth text_type_digits-large`}>{orderNumber}</h3>
-          <p className="text text_type_main-medium mt-8">идентификатор заказа</p>
+          <h3 className={`${style.title} text text_primary_ligth text_type_digits-large`} id="orderNumber">{orderNumber}</h3>
+          <p className="text text_type_main-medium mt-8" id="title">идентификатор заказа</p>
           <div className={`${style.status} mt-15 mb-15`}> 
             <img src={imgDone} alt="готово" />
           </div>     

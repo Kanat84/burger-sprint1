@@ -5,7 +5,6 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.2",
     "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "@types/jest": "^26.0.24",
     "@types/react": "^17.0.21",
@@ -49,8 +48,18 @@
     ]
   },
   "devDependencies": {
+    "@4tw/cypress-drag-drop": "^2.1.0",
+    "@testing-library/react": "^11.2.7",
     "@types/node": "^12.20.36",
     "@types/react-router-dom": "^5.3.2",
-    "@types/uuid": "^8.3.1"
+    "@types/uuid": "^8.3.1",
+    "cypress": "^9.1.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
+    "eslint-plugin-cypress": "^2.12.1",
+    "fetch-mock": "^9.11.0",
+    "jest": "^26.6.0",
+    "react-test-renderer": "^17.0.2",
+    "redux-mock-store": "^1.5.4"
   }
 }

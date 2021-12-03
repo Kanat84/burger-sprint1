@@ -58,7 +58,7 @@ export default function BurgerConstructor() {
     return (
         <>
             <div ref={dropTarget} className={`${style.constructor} mt-25`}>
-                <ul className={`${style.list}`}>
+                <ul className={`${style.list}`} id="constructorList">
                     <li className={`${style.item} ${isHover ? style.item_isHovering : ''}`}>
                         {bun ? (                        
                             <ConstructorElement type="top" isLocked={true} text={`${bun.name} (верх)`} price={bun.price} thumbnail={bun.image} />
