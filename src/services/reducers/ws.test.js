@@ -22,7 +22,7 @@ describe('ws reducer', () => {
     })
     it('should handle WS_CONNECTION_START', () => {
         expect(wsReducer(initialState, { type: WS_CONNECTION_START })).toEqual(
-            { ...initialState, wsConnected: true, wsError: false }
+            { ...initialState, wsConnected: false, wsError: false }
         )
     })    
     it('should handle WS_CONNECTION_SUCCESS', () => {

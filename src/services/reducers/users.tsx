@@ -23,7 +23,7 @@ type TInitialState = {
     wasOnForgotPass: boolean;
 }
 
-const initialState: TInitialState = {
+export const initialState: TInitialState = {
     authRequest: false,
     authFailed: false,
     user: {

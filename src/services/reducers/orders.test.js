@@ -1,6 +1,5 @@
 import {
-    GET_ORDER_REQUEST,
-    GET_ORDER_SUCCESS,    
+    GET_ORDER_REQUEST,  
     GET_ORDER_FAILED,  
     CLEAR_ORDER,     
     GET_ORDER_NUMBER_REQUEST,
@@ -9,13 +8,6 @@ import {
     CLEAR_ORDER_NUMBER
 } from '../constants';
 import { initialState, ordersReducer } from "./orders";
-
-const ordersFake = [
-    { ingredient: 0 },
-    { ingredient: 1 },
-    { ingredient: 2 },
-    { ingredient: 3 }
-]
 
 describe('orders reducer', () => {
     it('should return the initial state', () => {
@@ -28,11 +20,6 @@ describe('orders reducer', () => {
             { ...initialState, orderRequest: true }
         )
     })
-    it('should handle GET_ORDER_SUCCESS', () => {
-        expect(ordersReducer(initialState, { type: GET_ORDER_SUCCESS, orders: { fake: 123456 }})).toEqual(
-            { ...initialState, orderFailed: false, orderRequest: false, orders: { fake: 123456 }}
-        )
-    })    
     it('should handle GET_ORDER_FAILED', () => {
         expect(ordersReducer(initialState, { type: GET_ORDER_FAILED })).toEqual(
             { ...initialState, orderFailed: true }
@@ -43,7 +30,7 @@ describe('orders reducer', () => {
     })
     it('should handle GET_ORDER_NUMBER_REQUEST', () => {
         expect(ordersReducer(initialState, { type: GET_ORDER_NUMBER_REQUEST })).toEqual(
-            { ...initialState, orderNumberFailed: false, orderNumberRequest: true }
+            { ...initialState, orderNumberFailed: false, orderRequest: true }
         )
     })
     it('should handle GET_ORDER_NUMBER_SUCCESS', () => {
@@ -53,7 +40,7 @@ describe('orders reducer', () => {
     })
     it('should handle GET_ORDER_NUMBER_FAILED', () => {
         expect(ordersReducer(initialState, { type: GET_ORDER_NUMBER_FAILED })).toEqual(
-            { ...initialState, orderNumberFailed: true, orderNumberRequest: false }
+            { ...initialState, orderFailed: true, orderNumberRequest: false }
         )
     })
     it('should handle CLEAR_ORDER_NUMBER', () => {
