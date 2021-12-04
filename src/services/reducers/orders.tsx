@@ -20,7 +20,7 @@ type TInitialState = {
     orderNumberFailed: boolean
 }
 
-const initialState: TInitialState = {
+export const initialState: TInitialState = {
     order: null,
     orderRequest: false,
     orderFailed: false,

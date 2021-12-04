@@ -14,7 +14,7 @@ type TInintialState = {
     totalPrice: number;
 }
 
-const initialState: TInintialState = {
+export const initialState: TInintialState = {
     ingredients: [],
     bun: null,
     totalPrice: 0

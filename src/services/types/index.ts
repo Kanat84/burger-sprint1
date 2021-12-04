@@ -1,7 +1,5 @@
-//import { Action } from 'redux';
 import { TypedUseSelectorHook, useDispatch as dispatchHook, useSelector as selectorHook } from 'react-redux';
 import { ThunkAction } from 'redux-thunk';
-//import { store } from "../store";
 import { TUsersActions } from "../actions/users";
 import { TConstructorActions } from "../actions/burger-constructor";
 import { TIngredientsActions } from "../actions/burger-ingredients";
@@ -27,8 +25,6 @@ export type TPasswordData = {
 }
 
 type TApplicationActions = TUsersActions | TConstructorActions | TIngredientsActions | TOrdersActions | TWsActions;
-//export type RootState = ReturnType<typeof store.getState>;
-//export type AppDispatch = typeof store.dispatch;
 export type AppThunk<ReturnType = void> = ThunkAction<
     ReturnType,
     RootState,

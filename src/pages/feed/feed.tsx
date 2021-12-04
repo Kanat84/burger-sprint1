@@ -1,19 +1,27 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import style from './feed.module.css';
 import FeedItem from "../../components/feed-item/feed-item";
 import {  WsConnectionStartAction, WsConnectionClosedAction } from "../../services/actions/ws";
 import { wssURL } from "../../utils/constants";
-import { RootState, useDispatch, useSelector } from '../../services/types';
+import { useDispatch, useSelector } from '../../services/types';
 
 export default function FeedPage () {
     const dispatch = useDispatch();
-    const { orders, total, totalToday, wsConnected, wsError } = useSelector((state: RootState) => state.wsData);
+    const { orders, total, totalToday, wsConnected, wsError } = useSelector((state) => state.wsData);
     useEffect(() => {       
         dispatch(WsConnectionStartAction(`${wssURL}/all`));   
         return () => {
         dispatch(WsConnectionClosedAction());
         }
     }, [dispatch])
+
+    const doneOrders = useMemo(() => {
+        return orders.filter((item) => item.status === 'done'            
+    )}, [orders])
+
+    const pendingOrders = useMemo(() => {
+        return orders.filter((item) => item.status === 'pending'            
+    )}, [orders])
 
     return (
         <>
@@ -32,19 +40,13 @@ export default function FeedPage () {
                             <div className={style.feed__boardLeft}>
                                 <p className={`text text_type_main-medium mb-6`}>Готовы</p>
                                 <ul className={style.feed__completed}>
-                                    {orders
-                                    .filter((item) => item.status === 'done')
-                                    .map((item, index) => (<li className={`text text_type_digits-small text_color_success`} key={index}>{item.number}</li>))
-                                    }
+                                    {doneOrders.map((item, index) => (<li className={`text text_type_digits-small text_color_success`} key={index}>{item.number}</li>))}
                                 </ul>
                             </div>
                             <div className={style.feed__boardRight}>
                                 <p className={`text text_type_main-medium mb-6`}>В работе:</p>
                                 <ul className={style.feed__inProgress}>
-                                    {orders
-                                    .filter((item) => item.status === 'pending')
-                                    .map((item, index) => (<li className={`text text_type_digits-small text_color_success`} key={index}>{item.number}</li>))
-                                    }
+                                    {pendingOrders.map((item, index) => (<li className={`text text_type_digits-small text_color_success`} key={index}>{item.number}</li>))}
                                 </ul>
                             </div>
                         </div>

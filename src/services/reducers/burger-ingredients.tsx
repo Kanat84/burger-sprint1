@@ -15,7 +15,7 @@ type TInitialState = {
     ingredientDetails: TBurgerIngredientProps | {}
 }
 
-const initialState: TInitialState = {
+export const initialState: TInitialState = {
     ingredients: [],
     ingredientsRequest: false,
     ingredientsFailed: false,

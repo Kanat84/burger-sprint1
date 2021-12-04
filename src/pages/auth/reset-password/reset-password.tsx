@@ -6,12 +6,12 @@ import { postResetPassword } from "../../../services/funcs";
 import {
     DELETE_WAS_ON_FORGOT_PAGE
   } from '../../../services/constants';
-import { RootState, useDispatch, useSelector } from '../../../services/types';
+import { useDispatch, useSelector } from '../../../services/types';
 
 export default function ResetPasswordPage() {
     const history = useHistory();
     const dispatch = useDispatch();
-    const { wasOnForgotPass, isAuth } = useSelector((state: RootState) => state.usersData);
+    const { wasOnForgotPass, isAuth } = useSelector((state) => state.usersData);
     const [form, setValue] = useState<{ password: string; token: string }>({ password: "", token: "" })
 
     function handleChange(e: ChangeEvent<HTMLInputElement>) {

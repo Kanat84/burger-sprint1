@@ -6,13 +6,13 @@ import { postForgotPassword } from "../../../services/funcs";
 import {
     SET_WAS_ON_FORGOT_PAGE
   } from '../../../services/constants';
-import { RootState, useDispatch, useSelector } from '../../../services/types';
+import { useDispatch, useSelector } from '../../../services/types';
 
 export default function ForgotPasswordPage() {
     const [value, setValue] = useState<string>('')
     const history = useHistory();
     const dispatch = useDispatch();    
-    const { isAuth } = useSelector((state: RootState) => state.usersData);
+    const { isAuth } = useSelector((state) => state.usersData);
 
     function handleChange(e: ChangeEvent<HTMLInputElement>) {
         setValue(e.target.value);

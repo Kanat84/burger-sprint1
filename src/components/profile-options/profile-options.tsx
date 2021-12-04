@@ -2,10 +2,10 @@ import { useEffect, useState, useRef, FormEvent, ChangeEvent, SyntheticEvent, Re
 import styles from "./profile-options.module.css";
 import { Button, EmailInput, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { getUserInfo, postChangeUserInfo } from "../../services/funcs";
-import { TUserData, RootState, useDispatch, useSelector } from '../../services/types';
+import { TUserData, useDispatch, useSelector } from '../../services/types';
 
 export default function ProfileOptions() {
-    const { user } = useSelector((state: RootState) => state.usersData);
+    const { user } = useSelector((state) => state.usersData);
     const [isInput, setIsInput] = useState<boolean>(false);
     const [form, setValue] = useState<TUserData>({ name: "", email: "", password: "" })
     const dispatch = useDispatch();

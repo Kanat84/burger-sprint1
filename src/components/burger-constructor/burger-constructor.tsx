@@ -9,10 +9,10 @@ import { postOrder } from "../../services/funcs";
 import { TBurgerConstructorProps } from '../../utils/prop-types';
 import { AddBunToConstructorAction,  AddIngredientToConstructorAction, ClearConstructorAction } from '../../services/actions/burger-constructor'  
 import { ClearOrderNumberAction } from '../../services/actions/orders'  
-import { RootState, useDispatch, useSelector } from '../../services/types';
+import { useDispatch, useSelector } from '../../services/types';
 
 export default function BurgerConstructor() {  
-    const { ingredients, bun, orderNumber, isAuth } = useSelector((state: RootState) => ({
+    const { ingredients, bun, orderNumber, isAuth } = useSelector((state) => ({
         ingredients: state.burgerConstructor.ingredients,
         bun: state.burgerConstructor.bun,
         orderNumber: state.ordersData.orderNumber,
@@ -58,7 +58,7 @@ export default function BurgerConstructor() {
     return (
         <>
             <div ref={dropTarget} className={`${style.constructor} mt-25`}>
-                <ul className={`${style.list}`}>
+                <ul className={`${style.list}`} id="constructorList">
                     <li className={`${style.item} ${isHover ? style.item_isHovering : ''}`}>
                         {bun ? (                        
                             <ConstructorElement type="top" isLocked={true} text={`${bun.name} (верх)`} price={bun.price} thumbnail={bun.image} />
